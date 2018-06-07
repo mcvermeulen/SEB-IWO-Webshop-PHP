@@ -1,0 +1,7 @@
+<?php
+// SQL gegevens
+putenv("HOSTNAME=127.0.0.1");
+putenv("SQL_USER=username");
+putenv("SQL_PASS=password");
+putenv("SQL_DB=WEBSHOP");
+putenv("SQL_PORT=1401");

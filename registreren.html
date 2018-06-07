@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FairFood | Registreren</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+</head>
+<body>
+
+<header>
+    <a href="index.php"><img src="img/FairFood_logo3.png" alt="Logo" class = "logo"></a>
+</header>
+<nav>
+    <ul>
+        <li><a href="categorieen.php"><i class="fas fa-briefcase"></i><span class="text"> Categorie&euml;n</span></a></li>
+        <li><a href="aanbiedingen.php"><i class="far fa-gem"></i><span class="text"> Aanbiedingen</span></a></li>
+        <li><a href="over.php"><i class="far fa-envelope"></i><span class="text"> Over ons</span></a></li>
+        <li class="search"><i class="fas fa-search"></i><input placeholder="Zoek..."/></li>
+        <li class="dropdown">
+            <i class="far fa-user fa-lg"></i>
+            <div class="dropdown-menu">
+                <h3>Inloggen</h3>
+                <form>
+                    <p><label for="email">E-mailadres</label><br/>
+                        <input id="email" name="email" type="email"></p>
+                    <p><label for="wachtwoord">Wachtwoord</label><br/>
+                        <input id="wachtwoord" name="wachtwoord" type="password"></p>
+                    <p>
+                        <input id="onthouden" type="checkbox" name="onthouden">
+                        <label for="onthouden">Ingelogd blijven</label>
+                    </p>
+                    <p>
+                        <button type="submit" class="fill space-top">Inloggen</button>
+                    </p>
+                    <p>
+                        <a href="registreren.html">Registreren</a>
+                    </p>
+                </form>
+            </div>
+        </li>
+    </ul>
+</nav>
+<main>
+    <h1>Registreren</h1>
+    <form action="" method="get" class="registratieformulier">
+        <img src = "img/theeplukker.jpg" alt="Theeplukker" class = "registratieplaatje">
+        <div class="form-row">
+            <label for="voornaam">* Voornaam</label>
+            <input id="voornaam" name="voornaam" type="text"/>
+        </div>
+        <div class="form-row">
+            <label for="achternaam">* Achternaam</label>
+            <input id="achternaam" name="achternaam" type="text"/>
+        </div>
+        <div class="form-row">
+            <label for="tussenvoegsels">Tussenvoegsels</label>
+            <input id="tussenvoegsels" name="tussenvoegsels" type="text"/>
+        </div>
+        <div class="form-row">
+            <label for="geboortedatum">Geboortedatum</label>
+            <input id="geboortedatum" name="geboortedatum" type="date"/>
+        </div>
+        <div class="form-row">
+            <label for="telefoon">Telefoonnummer</label>
+            <input id="telefoon" name="telefoon" type="text"/>
+        </div>
+        <div class="form-row">
+            <label for="straat">* Straatnaam</label>
+            <input id="straat" name="straat" type="text"/>
+        </div>
+        <div class="form-row">
+            <label for="huisnummer">* Huisnummer</label>
+            <input id="huisnummer" name="huisnummer" type="text"/>
+        </div>
+        <div class="form-row">
+            <label for="postcode">* Postcode</label>
+            <input id="postcode" name="postcode" type="text"/>
+        </div>
+        <div class="form-row">
+            <label for="plaats">* Plaatsnaam</label>
+            <input id="plaats" name="plaats" type="text"/>
+        </div>
+        <div class="form-row">
+            <label for="emailRegistratie">* Email</label>
+            <input id="emailRegistratie" name="emailRegistratie" type="email" placeholder="jansen@voorbeeld.com"/>
+        </div>
+        <div class="form-row">
+            <label for="wachtwoordRegistratie">* Wachtwoord</label>
+            <input id="wachtwoordRegistratie" name="wachtwoordRegistratie" type="password"/>
+        </div>
+        <div class="form-row">
+            <label for="wachtwoordRegistratieCheck">* Herhaal wachtwoord</label>
+            <input id="wachtwoordRegistratieCheck" name="wachtwoordRegistratieCheck" type="password"/>
+        </div>
+
+        <div class="form-row">
+            <label class="checkbox-label" for="nieuwsbrief">
+                <input id="nieuwsbrief" name="nieuwsbrief" type="checkbox" value="wil_nieuwsbrief_ontvangen"/>
+                <span>Stuur mij de nieuwsbrief</span>
+            </label>
+        </div>
+
+        <div class="form-row">
+            <button>Registreren</button>
+        </div>
+
+        <p>* = verplicht veld</p>
+    </form>
+</main>
+
+<footer>
+    <p>FairFood &copy; 2018, Marcel Vermeulen & Charlotte Dikken</p>
+    <div class ="flexcontainer">
+        <ul>
+            <li><img src="img/Facebook.png" title="Volg ons op Facebook" alt="Facebook logo"></li>
+            <li><img src="img/Twitter.png" title="Volg ons op Twitter" alt="Twitter logo"></li>
+            <li><img src="img/Youtube.png" title="Volg ons op YouTube" alt="YouTube logo"></li>
+            <li><img src="img/LinkedIn.png" title="Volg ons op LinkedIn" alt="LinkedIn logo"></li>
+            <li><img src="img/Email.png" title="Stuur email" alt="Email logo"></li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>

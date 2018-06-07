@@ -1,0 +1,551 @@
+/* Algemeen */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h2, h3, p {
+    margin-bottom: 0.7em;
+}
+
+h2, h3 {
+    margin-top: 1em;
+}
+
+ul, ol {
+    padding-left: 40px;
+}
+
+body {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    background-color: #fafdf4;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #eae8d4;
+}
+
+header .logo{
+    height: 100px;
+    margin-left: 2em;
+}
+
+main {
+    flex-grow: 1;
+    padding: 8px 30px;
+    margin-top: 30px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.column {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+section > h2 {
+    width: 100%;
+    padding-left: 10px;
+}
+section.product:first-child {
+    flex-basis: 35%;
+}
+section.product:nth-child(2) {
+    flex-basis: 45%;
+}
+
+aside {
+    text-align: center;
+    font-size: 1.2em;
+    width: 100%;
+    letter-spacing: 0.05em;
+    font-style: italic;
+    margin: 30px auto 20px auto;
+}
+
+/* Artikelen */
+article {
+    flex: 20%;
+    background-color: #e3e5da;
+    margin: 10px;
+    position: relative;
+    user-select: none;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+}
+
+article img {
+    margin-right: 10px;
+    display: block;
+    max-width: 180px;
+    max-height: 140px;
+    width: auto;
+    height: auto;
+}
+
+article div {
+    flex-direction: column;
+    align-content: right;
+    position: relative;
+}
+
+article div > h3 {
+    margin-top: 0;
+}
+article a {
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+    padding: 10px;
+    height: 200px;
+}
+article div > p {
+    max-height: 53%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+}
+
+article .prijs {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-weight: 800;
+}
+article .actie {
+    color: #e5371b;
+}
+article .niet-actie {
+    font-size: 1em;
+    text-decoration: line-through;
+    bottom: 30px;
+}
+
+.prijs {
+    font-size: 2em;
+}
+
+article div.hover {
+    max-height: 0;
+    transition: max-height 0.15s ease-out;
+    overflow: hidden;
+    width: 50%;
+    position: absolute;
+    left: 0;
+    line-height: 40px;
+    text-align: center;
+    font-size: 1.2em;
+    bottom: 0;
+    background-color: #66cc00;
+    opacity: 0.7;
+}
+
+article:hover > div.hover {
+    max-height: 500px;
+    transition: max-height 0.3s ease-in;
+}
+
+.uitgelicht {
+    background-color: #eae8d4;
+}
+
+.uitgelicht article > a {
+    height: 150px;
+    background-color: #fafdf4;
+}
+.product {
+    justify-content: space-around;
+}
+.product img {
+    margin: 10px auto;
+}
+
+/* Navbar */
+nav {
+    padding: 0 16px;
+    background-color: #c8cac0;
+}
+
+nav > ul {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+}
+
+i {
+    margin-right: 4px;
+}
+
+nav > ul > li {
+    text-align: center;
+    font-size: 16px;
+    height: 46px;
+    padding: 14px 0;
+    display: inline-block;
+}
+
+nav > ul > li.search {
+    position: relative;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search > input {
+    padding: 5px 8px;
+    background: inherit;
+    width: 300px;
+    border: 0;
+    border-bottom: 1px solid darkolivegreen;
+    text-indent: 20px;
+}
+
+.search > i {
+    position: absolute;
+    top: 15px;
+    opacity: 0.4;
+}
+
+nav .dropdown {
+    display: inline-block;
+}
+
+nav .dropdown-menu {
+    font-size: 14px;
+    text-align: left;
+    padding: 10px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    background-color: #e3e5da;
+    min-height: 300px;
+    min-width: 200px;
+    margin-top: 14px;
+    position: absolute;
+    right: 16px;
+    display: none;
+    z-index: 1;
+}
+
+.dropdown-menu input:not([type=checkbox]) {
+    width: 200px;
+}
+
+nav > ul > li.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+nav > ul > li > a {
+    padding: 14px;
+    text-decoration: none;
+    color: black;
+}
+
+nav > ul > li > a:hover {
+    background-color: #66cc00;
+}
+
+nav > ul > li > a:active {
+    background-color: #bec0b7;
+}
+nav.categorieen {
+    background-color: inherit;
+    overflow: hidden;
+    max-height: 0;
+    padding: 0;
+}
+nav.categorieen ul {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+nav.categorieen li {
+    flex-shrink: 0;
+}
+nav.categorieen.open {
+    max-height: 800px;
+    transition: max-height 0.3s ease-in;
+    margin-bottom: 30px;
+}
+
+/* content */
+h1 {
+    text-align: center;
+    margin: 20px;
+    text-transform: uppercase;
+    font-size: 2.7em;
+    letter-spacing: 0.05em;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+.clear {
+    clear: both;
+}
+
+.right {
+    float: right;
+    margin-left: 10px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+.left {
+    float: left;
+    margin-left: 10px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+.fill {
+    width: 100%;
+}
+
+.space-top {
+    margin-top: 30px;
+}
+
+/* Forms */
+input {
+    padding: 6px 8px;
+    font-size: 14px;
+    border: 1px solid #a0a29a;
+}
+
+button {
+    min-width: 150px;
+    padding: 10px 20px;
+    font-size: 14px;
+    background-image: linear-gradient(180deg, #52c07b, #63e895);
+}
+
+.form-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+form.winkelmandje {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    max-width: 300px;
+}
+
+form.winkelmandje > input {
+    text-align: center;
+}
+
+form.winkelmandje:first-child {
+    flex: 50%;
+}
+
+form.registratieformulier{
+    background-color: white;
+    border: 1px solid #eae8d4;
+    border-radius: 3px;
+    padding: 50px 5% 50px 5%;
+    width: 75%;
+    margin: 40px auto auto;
+}
+
+form.registratieformulier img.registratieplaatje{
+    float: right;
+    width: 330px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.form-row input[type="text"],
+.form-row input[type="email"],
+.form-row input[type="password"],
+.form-row input[type="date"],
+.form-row select{
+    width: 70%;
+    height: initial;
+}
+
+form.registratieformulier .form-row input[type="text"]:focus,
+form.registratieformulier .form-row input[type="email"]:focus,
+form.registratieformulier .form-row input[type="password"]:focus,
+form.registratieformulier .form-row input[type="date"]:focus{
+    border: 1px solid forestgreen;
+}
+
+.form-row label {
+    text-align: right;
+    width: 200px;
+    margin-top: 7px;
+    padding-right: 20px;
+}
+
+.form-row .checkbox-label {
+    text-align: left;
+    margin-left: 200px;
+    width: 100%;
+}
+
+.form-row button{
+    margin: auto;
+}
+
+footer {
+    background: black;
+    background-image: url("../img/theekop.jpg"), url("../img/koffiekop.jpg");
+    background-position: right top, left top;
+    background-repeat: no-repeat;
+    color: white;
+    font-weight: bold;
+    padding: 8px 30px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+footer p{
+    margin-top: 45px;
+    margin-bottom: 15px;
+}
+
+.flexcontainer ul{
+    display: flex;
+    list-style-type: none;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: 0;
+}
+
+.flexcontainer ul li{
+    margin-left: 1em;
+}
+
+.flexcontainer ul li:nth-child(1){
+    margin-left: 0;
+}
+
+@media screen and (max-width: 1650px) {
+    form.registratieformulier img.registratieplaatje{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 812px) {
+    main {
+        padding: 8px;
+    }
+
+    main > img {
+        min-width: 0;
+        max-width: 100%;
+    }
+    header div {
+        flex-direction: column;
+    }
+    header .logo {
+        height: 70px;
+    }
+    article {
+        flex: 33%;
+    }
+
+    .search > input {
+        width: 150px;
+    }
+
+    header div h2 {
+        margin: 0;
+    }
+    nav {
+        margin-bottom: 0;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2, h3 {
+        font-size: 1.2em;
+    }
+    .right,
+    .left{
+        clear: both;
+    }
+    footer {
+        background: black none;
+        color: white;
+    }
+
+}
+
+@media screen and (max-width: 650px) {
+    nav {
+        margin-bottom: 0;
+        padding: 0 4px;
+    }
+    nav .text {
+        display: none;
+    }
+    .form-row{
+        margin-bottom: 40px;
+        flex-direction: column;
+    }
+    form.registratieformulier .form-row input[type="text"],
+    form.registratieformulier .form-row input[type="password"],
+    form.registratieformulier .form-row input[type="date"],
+    form.registratieformulier .form-row input[type="email"]{
+        width: 95%;
+    }
+    .form-row label {
+        margin-bottom: 15px;
+        margin-top: 0;
+        padding-right: 0;
+        text-align: left;
+        font-size: 120%;
+    }
+    .form-row .checkbox-label {
+        margin-left: 0;
+        width: auto;
+    }
+
+    .form-row button{
+        margin-top: 12px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    main img {
+        float: none !important;
+        margin-left: 0 !important;
+    }
+    header .logo {
+        height: 50px;
+    }
+    article {
+        flex: 100%;
+    }
+    section.product {
+        flex-direction: column;
+    }
+    section.product div:nth-child(2) {
+        order: -1;
+    }
+}
