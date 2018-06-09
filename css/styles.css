@@ -62,7 +62,10 @@ section.product:first-child {
     flex-basis: 35%;
 }
 section.product:nth-child(2) {
-    flex-basis: 45%;
+    flex-basis: 48%;
+}
+section.uitgelicht article div > p {
+    max-height: 45%;
 }
 
 aside {
@@ -84,22 +87,20 @@ article {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
 }
 
-article img {
+article > a > img {
     margin-right: 10px;
     display: block;
-    max-width: 180px;
+    max-width: 80px;
     max-height: 140px;
-    width: auto;
-    height: auto;
+    object-fit: scale-down;
 }
 
-article div {
-    flex-direction: column;
-    align-content: right;
+article > a > div {
+    flex-grow: 1;
     position: relative;
 }
 
-article div > h3 {
+article > a > div > h3 {
     margin-top: 0;
 }
 article a {
@@ -109,11 +110,29 @@ article a {
     padding: 10px;
     height: 200px;
 }
-article div > p {
-    max-height: 53%;
+article > a > div > p {
+    line-height: 1.2em;
+    max-height: 5.8em;
     overflow: hidden;
-    text-overflow: ellipsis;
+    position: relative;
     margin-bottom: 0;
+    margin-right: -1.2em;
+    padding-right: 1.2em;
+}
+article > a > div > p:before {
+    content: '...';
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+}
+article > a > div > p:after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    width: 1.2em;
+    height: 1.2em;
+    margin-top: 0.2em;
+    background: #e3e5da;
 }
 
 article .prijs {
@@ -139,7 +158,7 @@ article div.hover {
     max-height: 0;
     transition: max-height 0.15s ease-out;
     overflow: hidden;
-    width: 50%;
+    padding: 0 18px;
     position: absolute;
     left: 0;
     line-height: 40px;
@@ -162,6 +181,12 @@ article:hover div.hover {
 .uitgelicht article > a {
     height: 150px;
     background-color: #fafdf4;
+}
+.uitgelicht article > a > div > p {
+    max-height: 4.6em;
+}
+.uitgelicht article > a > div > p:after {
+    background: #fafdf4;
 }
 .product {
     justify-content: space-around;

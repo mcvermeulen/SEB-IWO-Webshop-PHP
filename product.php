@@ -2,7 +2,7 @@
 require_once 'includes/core.php';
 
 $dbh = DatabaseConnect();
-$stmt = $dbh->prepare("SELECT * FROM PRODUCT WHERE PRODUCTNUMMER = :id", [PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL]);
+$stmt = $dbh->prepare("SELECT * FROM PRODUCT WHERE PRODUCTNUMMER = :id");
 $stmt->execute(array(':id' => $_GET['id']));
 
 $row = $stmt->fetchObject();
@@ -25,6 +25,27 @@ $product = "<section class='row product'>
                 </div>
             </section>";
 
+$stmt = $dbh->prepare("SELECT * FROM PRODUCT WHERE PRODUCTNUMMER IN (SELECT PRODUCTNUMMER_GERELATEERD_PRODUCT FROM PRODUCT_GERELATEERD_PRODUCT WHERE PRODUCTNUMMER = :id);
+");
+$stmt->execute(array(':id' => $_GET['id']));
+
+$related = array();
+while ($row = $stmt->fetchObject()) {
+    $prod = "<article>
+            <a href='product.php?id=$row->PRODUCTNUMMER'>
+                <img src='$row->AFBEELDING_KLEIN' alt='Foto van $row->PRODUCTNUMMER'/>
+                <div>
+                    <h3>$row->PRODUCTNAAM</h3>
+                    <p>$row->OMSCHRIJVING</p>
+                    <span class='prijs'>&euro; $row->PRIJS</span>
+                </div>
+                <div class='hover'>
+                    Bekijk product
+                </div>
+            </a>
+        </article>";
+    $related[] = $prod;
+}
 
 $dbh = null;
 $stmt = null;
@@ -48,48 +69,11 @@ $stmt = null;
 
     <section class="row uitgelicht">
         <h2>Misschien vind je dit ook leuk</h2>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
+        <?php
+        foreach ($related as $prod) {
+            echo $prod;
+        }
+        ?>
     </section>
 </main>
 
