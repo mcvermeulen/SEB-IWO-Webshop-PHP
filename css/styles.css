@@ -183,7 +183,7 @@ article:hover div.hover {
     background-color: #fafdf4;
 }
 .uitgelicht article > a > div > p {
-    max-height: 4.6em;
+    max-height: 3.5em;
 }
 .uitgelicht article > a > div > p:after {
     background: #fafdf4;

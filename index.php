@@ -2,11 +2,15 @@
 require_once 'includes/core.php';
 
 $dbh = DatabaseConnect();
-$sth = $dbh->query("SELECT * FROM PRODUCT");
 
-$producten = array();
+$sth = $dbh->query("SELECT * FROM PRODUCT");
 while ($row = $sth->fetchObject()) {
     $producten[] = genereerArtikel($row);
+}
+
+$sth = $dbh->query("SELECT TOP 3 * FROM PRODUCT ORDER BY NEWID()");
+while ($row = $sth->fetchObject()) {
+    $uitgelicht[] = genereerArtikel($row);
 }
 
 $dbh = null;
@@ -31,48 +35,7 @@ $sth = null;
 <main>
     <section class="row uitgelicht">
         <h2>Uitgelicht</h2>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
+        <?php foreach ($uitgelicht as $prod) { echo $prod; } ?>
     </section>
     <aside>Wij bij FairFood staan voor kwaliteit, betrouwbaarheid en eerlijkheid.<br/>
         U bent bij ons aan het juiste adres voor FairTrade en biologische producten tegen een eerlijke prijs.
