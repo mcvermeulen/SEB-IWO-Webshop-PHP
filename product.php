@@ -2,10 +2,10 @@
 require_once 'includes/core.php';
 
 $dbh = DatabaseConnect();
-$stmt = $dbh->prepare("SELECT * FROM PRODUCT WHERE PRODUCTNUMMER = :id");
-$stmt->execute(array(':id' => $_GET['id']));
+$sth = $dbh->prepare("SELECT * FROM PRODUCT WHERE PRODUCTNUMMER = :id");
+$sth->execute(array(':id' => $_GET['id']));
 
-$row = $stmt->fetchObject();
+$row = $sth->fetchObject();
 
 $product = "<section class='row product'>
                 <div class='column' style='flex-basis: 45%'>
@@ -25,17 +25,17 @@ $product = "<section class='row product'>
                 </div>
             </section>";
 
-$stmt = $dbh->prepare("SELECT TOP 3 * FROM PRODUCT WHERE PRODUCTNUMMER IN (SELECT PRODUCTNUMMER_GERELATEERD_PRODUCT FROM PRODUCT_GERELATEERD_PRODUCT WHERE PRODUCTNUMMER = :id);
+$sth = $dbh->prepare("SELECT TOP 3 * FROM PRODUCT WHERE PRODUCTNUMMER IN (SELECT PRODUCTNUMMER_GERELATEERD_PRODUCT FROM PRODUCT_GERELATEERD_PRODUCT WHERE PRODUCTNUMMER = :id);
 ");
-$stmt->execute(array(':id' => $_GET['id']));
+$sth->execute(array(':id' => $_GET['id']));
 
 $related = array();
-while ($row = $stmt->fetchObject()) {
+while ($row = $sth->fetchObject()) {
     $related[] = genereerArtikel($row);
 }
 
 $dbh = null;
-$stmt = null;
+$sth = null;
 ?>
 <!DOCTYPE html>
 <html lang="nl">
