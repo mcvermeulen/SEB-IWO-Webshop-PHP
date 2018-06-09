@@ -474,6 +474,7 @@ ul.pagination {
     margin-right: auto;
     list-style-type: none;
     display: flex;
+    padding-left: 0;
 }
 .pagination > li > span{
     padding: 8px 16px;
