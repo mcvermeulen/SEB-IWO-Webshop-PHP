@@ -25,7 +25,7 @@ $product = "<section class='row product'>
                 </div>
             </section>";
 
-$stmt = $dbh->prepare("SELECT * FROM PRODUCT WHERE PRODUCTNUMMER IN (SELECT PRODUCTNUMMER_GERELATEERD_PRODUCT FROM PRODUCT_GERELATEERD_PRODUCT WHERE PRODUCTNUMMER = :id);
+$stmt = $dbh->prepare("SELECT TOP 3 * FROM PRODUCT WHERE PRODUCTNUMMER IN (SELECT PRODUCTNUMMER_GERELATEERD_PRODUCT FROM PRODUCT_GERELATEERD_PRODUCT WHERE PRODUCTNUMMER = :id);
 ");
 $stmt->execute(array(':id' => $_GET['id']));
 

@@ -1,8 +1,8 @@
 USE master
 GO
 
---DROP DATABASE WEBSHOP
---GO
+DROP DATABASE WEBSHOP
+GO
 
 CREATE DATABASE WEBSHOP
 GO
@@ -19,8 +19,8 @@ CREATE TABLE CATEGORIE (
    CATEGORIENAAM VARCHAR(15) NOT NULL,
 
    CONSTRAINT PK_CATEGORIE PRIMARY KEY (CATEGORIENAAM),
-   CONSTRAINT CK_CATEGORIENAAM CHECK (LEN(CATEGORIENAAM) >=5)
-)
+   CONSTRAINT CK_CATEGORIENAAM CHECK (LEN(CATEGORIENAAM) >=4)
+);
 
 /* TABLE GEBRUIKER
  * 
@@ -55,7 +55,7 @@ CREATE TABLE GEBRUIKER (
    CONSTRAINT CK_WACHTWOORD     CHECK (LEN(WACHTWOORD) >= 4),
    CONSTRAINT CK_POSTCODE       CHECK (POSTCODE LIKE '[1-9][0-9][0-9][0-9][A-Z][A-Z]'),
    CONSTRAINT CK_SEXE           CHECK (SEXE IN ('M', 'V'))
-)
+);
 
 
 /* TABLE PRODUCT
@@ -64,7 +64,7 @@ CREATE TABLE GEBRUIKER (
  * "Product <productnummer> valt onder de categorie '<categorienaam>'."
  * "Product <productnummer> heeft thumbnail '<bestandsnaam>'."
  * "Product <productnummer> heeft als afbeelding '<bestandsnaam>'."
- * "Product <productnummer> kost € <bedrag>."
+ * "Product <productnummer> kost ï¿½ <bedrag>."
  * "Product <productnummer> heeft omschrijving '<productomschrijving>'."
  * "Van product <productnummer> zijn nog <aantal> exemplaren op voorraad."
  */
@@ -74,21 +74,23 @@ CREATE TABLE PRODUCT (
    OMSCHRIJVING     VARCHAR(MAX)      NOT NULL,
    CATEGORIE        VARCHAR(15)       NOT NULL,
    PRIJS            NUMERIC(8,2)      NOT NULL,
+   ACTIEPRIJS       NUMERIC(8,2)      NULL,
    VOORRAAD         INTEGER           NULL,
    AFBEELDING_GROOT VARCHAR(1024)     NOT NULL,
    AFBEELDING_KLEIN VARCHAR(1024)     NOT NULL,
 
    CONSTRAINT PK_PRODUCT        PRIMARY KEY (PRODUCTNUMMER),
    CONSTRAINT UK_PRODUCTNAAM    UNIQUE (PRODUCTNAAM),
-   CONSTRAINT CK_PRODUCTNAAM    CHECK (LEN(PRODUCTNAAM) >= 5),
+   CONSTRAINT CK_PRODUCTNAAM    CHECK (LEN(PRODUCTNAAM) >= 4),
    CONSTRAINT CK_PRIJS          CHECK (PRIJS > 0),
+   CONSTRAINT CK_ACTIEPRIJS     CHECK (ACTIEPRIJS > 0),
    CONSTRAINT CK_VOORRAAD       CHECK (VOORRAAD > 0),
    CONSTRAINT CK_OMSCHRIJVING   CHECK(LEN(OMSCHRIJVING) > 50),
    CONSTRAINT FK_PRODUCT_CATEGORIE FOREIGN KEY (CATEGORIE)
 				REFERENCES CATEGORIE (CATEGORIENAAM) 
 					ON DELETE NO ACTION 
 					ON UPDATE NO ACTION
-)
+);
 
 /* TABLE PRODUCT_GERELATEERD_PRODUCT
  * 
