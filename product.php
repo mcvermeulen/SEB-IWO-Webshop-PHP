@@ -31,20 +31,7 @@ $stmt->execute(array(':id' => $_GET['id']));
 
 $related = array();
 while ($row = $stmt->fetchObject()) {
-    $prod = "<article>
-            <a href='product.php?id=$row->PRODUCTNUMMER'>
-                <img src='$row->AFBEELDING_KLEIN' alt='Foto van $row->PRODUCTNUMMER'/>
-                <div>
-                    <h3>$row->PRODUCTNAAM</h3>
-                    <p>$row->OMSCHRIJVING</p>
-                    <span class='prijs'>&euro; $row->PRIJS</span>
-                </div>
-                <div class='hover'>
-                    Bekijk product
-                </div>
-            </a>
-        </article>";
-    $related[] = $prod;
+    $related[] = genereerArtikel($row);
 }
 
 $dbh = null;
@@ -69,11 +56,7 @@ $stmt = null;
 
     <section class="row uitgelicht">
         <h2>Misschien vind je dit ook leuk</h2>
-        <?php
-        foreach ($related as $prod) {
-            echo $prod;
-        }
-        ?>
+        <?php foreach ($related as $prod) { echo $prod; } ?>
     </section>
 </main>
 

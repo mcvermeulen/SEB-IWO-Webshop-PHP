@@ -1,3 +1,19 @@
+<?php
+require_once 'includes/core.php';
+
+$dbh = DatabaseConnect();
+$sth = $dbh->query("SELECT * FROM PRODUCT WHERE ACTIEPRIJS IS NOT NULL ");
+
+$producten = array();
+while ($row = $sth->fetchObject()) {
+    $producten[] = genereerArtikel($row);
+}
+
+$dbh = null;
+$sth = null;
+
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -15,112 +31,7 @@
 <main>
     <h2>Nu in de aanbieding:</h2>
     <section class="row">
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs actie">&euro; 3,99</span>
-                    <span class="prijs niet-actie">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs actie">&euro; 3,99</span>
-                    <span class="prijs niet-actie">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs actie">&euro; 3,99</span>
-                    <span class="prijs niet-actie">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs actie">&euro; 3,99</span>
-                    <span class="prijs niet-actie">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs actie">&euro; 3,99</span>
-                    <span class="prijs niet-actie">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs actie">&euro; 3,99</span>
-                    <span class="prijs niet-actie">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs actie">&euro; 3,99</span>
-                    <span class="prijs niet-actie">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-
+        <?php foreach ($producten as $prod) { echo $prod; } ?>
     </section>
 </main>
 

@@ -6,25 +6,7 @@ $sth = $dbh->query("SELECT * FROM PRODUCT");
 
 $producten = array();
 while ($row = $sth->fetchObject()) {
-    $prod = "<article>
-            <a href='product.php?id=$row->PRODUCTNUMMER'>
-                <img src='$row->AFBEELDING_KLEIN' alt='Foto van $row->PRODUCTNUMMER'/>
-                <div>
-                    <h3>$row->PRODUCTNAAM</h3>
-                    <p>$row->OMSCHRIJVING</p>";
-    if (!empty($row->ACTIEPRIJS)) {
-        $prod .= "<span class='prijs actie'>&euro; 3,99</span>
-                  <span class='prijs niet-actie'>&euro; 4,99</span>";
-    } else {
-        $prod .= "<span class='prijs'>&euro; $row->PRIJS</span>";
-    }
-    $prod .= "</div>
-                <div class='hover'>
-                    Bekijk product
-                </div>
-            </a>
-        </article>";
-    $producten[] = $prod;
+    $producten[] = genereerArtikel($row);
 }
 
 $dbh = null;
@@ -96,11 +78,7 @@ $sth = null;
         U bent bij ons aan het juiste adres voor FairTrade en biologische producten tegen een eerlijke prijs.
     </aside>
     <section class="row">
-        <?php
-        foreach ($producten as $prod) {
-            echo $prod;
-        }
-        ?>
+        <?php foreach ($producten as $prod) { echo $prod; } ?>
     </section>
 </main>
 
