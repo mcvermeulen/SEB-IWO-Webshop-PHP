@@ -35,3 +35,17 @@ function genereerArtikel($row)
 
     return $prod;
 }
+
+function genereerPagination($page = 1, $limit = 10, $total = 0){
+    $nPages = ceil($total/$limit);
+
+    $pagination = "<ul class='pagination'>";
+    $pagination .= ($page <= 1) ? "<li><span>&laquo;<span></span></li>" : "<li><a href='?page=".($page-1)."'>&laquo;</a></li>";
+    for ($i = 1; $i <= $nPages; $i++) {
+        $pagination .= ($i == $page) ? "<li><a class='active' href='?page=$i'>$i</a></li>" : "<li><a href='?page=$i'>$i</a></li>";
+    }
+    $pagination .= ($page >= $nPages) ? "<li><span>&raquo;<span></span></li>" : "<li><a href='?page=".($page+1)."'>&raquo;</a></li>";
+    $pagination .= "</ul>";
+
+    return $pagination;
+}

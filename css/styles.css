@@ -468,6 +468,31 @@ footer p{
     margin-left: 0;
 }
 
+/* Pagination */
+ul.pagination {
+    margin-left: auto;
+    margin-right: auto;
+    list-style-type: none;
+    display: flex;
+}
+.pagination > li > span{
+    padding: 8px 16px;
+    display: inline-block;
+}
+.pagination > li > a {
+    color: black;
+    float: left;
+    text-decoration: none;
+    padding: 8px 16px;
+    transition: background-color .3s;
+}
+.pagination a.active {
+    background-color: #66cc00;
+    color: white;
+}
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+
 @media screen and (max-width: 1650px) {
     form.registratieformulier img.registratieplaatje{
         display: none;

@@ -1,18 +1,20 @@
 <?php
 require_once 'includes/core.php';
-
+$page = $_GET['page'] ?? 1;
+$limit = $_GET['limit'] ?? 10;
+$total = 0;
 $dbh = DatabaseConnect();
 
-$sth = $dbh->query("SELECT * FROM PRODUCT");
+$sth = $dbh->prepare("SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRODUCTNUMMER) AS RowID, (SELECT COUNT(*) FROM PRODUCT) AS Total, * FROM PRODUCT) AS P WHERE RowID >= :start AND RowID <= :end");
+$sth->execute(array(':start' => ($page-1) * $limit, ':end' => $page * $limit));
 while ($row = $sth->fetchObject()) {
+    $total = $row->Total;
     $producten[] = genereerArtikel($row);
 }
-
 $sth = $dbh->query("SELECT TOP 3 * FROM PRODUCT ORDER BY NEWID()");
 while ($row = $sth->fetchObject()) {
     $uitgelicht[] = genereerArtikel($row);
 }
-
 $dbh = null;
 $sth = null;
 
@@ -44,6 +46,7 @@ $sth = null;
         <?php foreach ($producten as $prod) { echo $prod; } ?>
     </section>
 </main>
+<?php echo genereerPagination($page, $limit, $total) ?>
 
 <?php include 'includes/footer.html'; ?>
 
