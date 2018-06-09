@@ -491,7 +491,12 @@ ul.pagination {
     color: white;
 }
 .pagination a:hover:not(.active) {background-color: #ddd;}
-
+select {
+    padding: 5px;
+    height: 30px;
+    width: 100px;
+    font-size: 12px;
+}
 
 @media screen and (max-width: 1650px) {
     form.registratieformulier img.registratieplaatje{

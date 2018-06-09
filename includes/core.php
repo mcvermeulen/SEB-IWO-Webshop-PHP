@@ -40,12 +40,24 @@ function genereerPagination($page = 1, $limit = 10, $total = 0){
     $nPages = ceil($total/$limit);
 
     $pagination = "<ul class='pagination'>";
-    $pagination .= ($page <= 1) ? "<li><span>&laquo;<span></span></li>" : "<li><a href='?page=".($page-1)."'>&laquo;</a></li>";
+    $pagination .= ($page <= 1) ? "<li><span>&laquo;<span></span></li>" : "<li><a href='?page=".($page-1)."&limit=$limit'>&laquo;</a></li>";
     for ($i = 1; $i <= $nPages; $i++) {
-        $pagination .= ($i == $page) ? "<li><a class='active' href='?page=$i'>$i</a></li>" : "<li><a href='?page=$i'>$i</a></li>";
+        $pagination .= ($i == $page) ? "<li><a class='active' href='?page=$i&limit=$limit'>$i</a></li>" : "<li><a href='?page=$i&limit=$limit'>$i</a></li>";
     }
-    $pagination .= ($page >= $nPages) ? "<li><span>&raquo;<span></span></li>" : "<li><a href='?page=".($page+1)."'>&raquo;</a></li>";
-    $pagination .= "</ul>";
+    $pagination .= ($page >= $nPages) ? "<li><span>&raquo;<span></span></li>" : "<li><a href='?page=".($page+1)."&limit=$limit'>&raquo;</a></li>";
+    $pagination .= "</ul><br>";
+
+    $pagination .=
+    "<form style='margin-left: auto;margin-right: auto'>
+    Producten per pagina:
+    <select name='limit' onchange='this.form.submit()'>";
+        $pagination .= ($limit == 10) ? "<option selected value='10'>10</option>" : "<option value='10'>10</option>";
+        $pagination .= ($limit == 20) ? "<option selected value='20'>20</option>" : "<option value='20'>20</option>";
+        $pagination .= ($limit == 30) ? "<option selected value='20'>30</option>" : "<option value='30'>30</option>";
+        $pagination .= ($limit == 9999) ? "<option selected value='9999'>alles</option>" : "<option value='9999'>alles</option>";
+
+    $pagination .= "</select>
+    </form>";
 
     return $pagination;
 }
