@@ -9,7 +9,7 @@ $row = $sth->fetchObject();
 $title = $row->PRODUCTNAAM;
 $product = "<section class='row product'>
                 <div class='column' style='flex-basis: 45%'>
-                    <img src='$row->AFBEELDING_GROOT'/>
+                    <img src='$row->AFBEELDING_GROOT' alt='Foto van $row->PRODUCTNAAM'/>
                     <p>$row->OMSCHRIJVING</p>
                 </div>
                 <div class='column' style='flex-basis: 35%'>
