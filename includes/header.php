@@ -10,7 +10,7 @@
         <li class="search">
             <form method="post" action="index.php">
                 <i class="fas fa-search"></i>
-                <input name="zoek" placeholder="Zoek..." onkeydown['enter']="this.form.submit"/>
+                <input name="zoek" placeholder="Zoek..." onkeydown="this.form.submit"/>
             </form>
         </li>
         <?=$headerHTML?>
