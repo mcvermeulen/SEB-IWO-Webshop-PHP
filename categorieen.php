@@ -17,9 +17,8 @@ if (empty($_GET['categorie'])) {
     $sth = $dbh->prepare("SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRODUCTNUMMER) AS RowID, (SELECT COUNT(*) FROM PRODUCT) AS Total, * FROM PRODUCT) AS P WHERE RowID > :start AND RowID <= :end");
     $sth->execute(array(':start' => ($page - 1) * $limit, ':end' => $page * $limit));
 } else {
-    $limit = 9999;
-    $sth = $dbh->prepare("SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRODUCTNUMMER) AS RowID, (SELECT COUNT(*) FROM PRODUCT) AS Total, * FROM PRODUCT) AS P WHERE RowID > :start AND RowID <= :end AND CATEGORIE = :categorie");
-    $sth->execute(array(':start' => ($page - 1) * $limit, ':end' => $page * $limit, ":categorie" => $_GET['categorie']));
+    $sth = $dbh->prepare("SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRODUCTNUMMER) AS RowID, (SELECT COUNT(*) FROM PRODUCT WHERE CATEGORIE = :categorie1) AS Total, * FROM PRODUCT WHERE CATEGORIE = :categorie2) AS P WHERE RowID > :start AND RowID <= :end");
+    $sth->execute(array(':start' => ($page - 1) * $limit, ':end' => $page * $limit, ":categorie1" => $_GET['categorie'], ":categorie2" => $_GET['categorie']));
 }
 while ($row = $sth->fetchObject()) {
     $total = $row->Total;

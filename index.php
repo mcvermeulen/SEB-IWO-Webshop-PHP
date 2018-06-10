@@ -2,16 +2,16 @@
 require_once 'includes/core.php';
 $page = $_GET['page'] ?? 1;
 $limit = $_GET['limit'] ?? 10;
+$zoek = $_REQUEST['zoek'] ?? null;
 $total = 0;
 $dbh = DatabaseConnect();
 
-if (empty($_POST['zoek'])) {
+if (empty($zoek)) {
     $sth = $dbh->prepare("SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRODUCTNUMMER) AS RowID, (SELECT COUNT(*) FROM PRODUCT) AS Total, * FROM PRODUCT) AS P WHERE RowID > :start AND RowID <= :end");
     $sth->execute(array(':start' => ($page-1) * $limit, ':end' => $page * $limit));
 } else {
-    $limit = 9999;
-    $sth = $dbh->prepare("SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRODUCTNUMMER) AS RowID, (SELECT COUNT(*) FROM PRODUCT) AS Total, * FROM PRODUCT) AS P WHERE RowID > :start AND RowID <= :end AND PRODUCTNAAM like :zoek");
-    $sth->execute(array(':start' => ($page-1) * $limit, ':end' => $page * $limit, ':zoek' => "%$_POST[zoek]%"));
+    $sth = $dbh->prepare("SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRODUCTNUMMER) AS RowID, (SELECT COUNT(*) FROM PRODUCT WHERE PRODUCTNAAM like :zoek1) AS Total, * FROM PRODUCT WHERE PRODUCTNAAM like :zoek2) AS P WHERE RowID > :start AND RowID <= :end");
+    $sth->execute(array(':start' => ($page-1) * $limit, ':end' => $page * $limit, ':zoek1' => "%$zoek%", ':zoek2' => "%$zoek%"));
 }
 while ($row = $sth->fetchObject()) {
     $total = $row->Total;
@@ -48,7 +48,7 @@ $sth = null;
         <?php foreach ($producten as $prod) { echo $prod; } ?>
     </section>
 </main>
-<?php echo genereerPagination($page, $limit, $total) ?>
+<?php echo genereerPagination($page, $limit, $total, $zoek) ?>
 
 <?php include 'includes/footer.html'; ?>
 
