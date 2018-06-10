@@ -1,3 +1,8 @@
+<?php
+include 'includes/signin.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>

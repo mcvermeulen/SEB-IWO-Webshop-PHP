@@ -414,11 +414,36 @@ form.registratieformulier .form-row input[type="date"]:focus{
     border: 1px solid forestgreen;
 }
 
+.invalidUsername{
+    border: 2px solid red;
+    color: red;
+}
+
 .form-row label {
     text-align: right;
     width: 200px;
     margin-top: 7px;
     padding-right: 20px;
+}
+
+.legacy-form-row {
+    border: none;
+    margin-bottom: 10px;
+    margin-left: 200px;
+}
+
+.radiogroep {
+    display: inline-block;
+    float: left;
+}
+
+.legacy-form-row .radio-label {
+    font-size: 14px;
+    padding: 0 15px 0 10px;
+}
+
+.legacy-form-row input[type="radio"] {
+    margin-top: 2px;
 }
 
 .form-row .checkbox-label {
@@ -429,6 +454,28 @@ form.registratieformulier .form-row input[type="date"]:focus{
 
 .form-row button{
     margin: auto;
+}
+
+/* Account info */
+
+.accountinfo{
+    width: 50%;
+    border-spacing: 10px;
+    margin: auto;
+    border: 3px solid #eae8d4;
+    /*table-layout: fixed;*/
+}
+
+.accountinfo td{
+    padding: 0.5em 1em;
+    vertical-align: top;
+    background-color: #e3e5da;
+    /*word-wrap: break-word;*/
+}
+
+td.accountinfoKop {
+    font-weight: bold;
+    background-color: #fafdf4;
 }
 
 /* Footer */
@@ -501,13 +548,30 @@ select {
     form.registratieformulier img.registratieplaatje{
         display: none;
     }
+
+    .form-row label{
+        width: 165px;
+    }
+
+    .legacy-form-row,
+    .form-row .checkbox-label{
+        margin-left: 165px;
+        width: 200px;
+    }
+
+    .form-row input[type="text"],
+    .form-row input[type="email"],
+    .form-row input[type="password"],
+    .form-row input[type="date"],
+    .form-row select {
+        width: 60%;
+    }
 }
 
 @media screen and (max-width: 812px) {
     main {
         padding: 8px;
     }
-
     main > img {
         min-width: 0;
         max-width: 100%;
@@ -544,21 +608,7 @@ select {
     .left{
         clear: both;
     }
-    footer {
-        background: black none;
-        color: white;
-    }
 
-}
-
-@media screen and (max-width: 650px) {
-    nav {
-        margin-bottom: 0;
-        padding: 0 4px;
-    }
-    nav .text {
-        display: none;
-    }
     .form-row{
         margin-bottom: 40px;
         flex-direction: column;
@@ -575,14 +625,38 @@ select {
         padding-right: 0;
         text-align: left;
         font-size: 120%;
+        width: 100%;
     }
     .form-row .checkbox-label {
         margin-left: 0;
         width: auto;
     }
-
     .form-row button{
         margin-top: 12px;
+    }
+
+    .legacy-form-row {
+        margin-left: 0;
+    }
+
+    footer {
+        background: black none;
+        color: white;
+    }
+
+}
+
+@media screen and (max-width: 650px) {
+    nav {
+        margin-bottom: 0;
+        padding: 0 4px;
+    }
+    nav .text {
+        display: none;
+    }
+
+    .accountinfo{
+        font-size: 80%;
     }
 }
 

@@ -17,7 +17,6 @@ function DatabaseConnect()
     try {
         $dsn = "sqlsrv:Server=$config[hostname],$config[port];Database=$config[database];ConnectionPooling=0";
         $connection = new PDO ($dsn, $config['user'], $config['pass'], $options);
-
         return $connection;
     } catch (PDOException $e) {
         die("Failed to get DB handle: " . $e->getMessage());

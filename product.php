@@ -1,5 +1,6 @@
 <?php
 require_once 'includes/core.php';
+include 'includes/signin.php';
 
 $dbh = DatabaseConnect();
 $sth = $dbh->prepare("SELECT * FROM PRODUCT WHERE PRODUCTNUMMER = :id");
