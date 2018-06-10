@@ -64,9 +64,6 @@ section.product:first-child {
 section.product:nth-child(2) {
     flex-basis: 48%;
 }
-section.uitgelicht article div > p {
-    max-height: 45%;
-}
 
 aside {
     text-align: center;
@@ -140,6 +137,9 @@ article .prijs {
     right: 0;
     bottom: 0;
     font-weight: 800;
+}
+article.geenprijs > a > div > p {
+    max-height: 6.9em !important;
 }
 article .actie {
     color: #e5371b;

@@ -13,7 +13,7 @@ while ($row = $sth->fetchObject()) {
 }
 $sth = $dbh->query("SELECT TOP 3 * FROM PRODUCT ORDER BY NEWID()");
 while ($row = $sth->fetchObject()) {
-    $uitgelicht[] = genereerArtikel($row);
+    $uitgelicht[] = genereerArtikel($row, false);
 }
 $dbh = null;
 $sth = null;
