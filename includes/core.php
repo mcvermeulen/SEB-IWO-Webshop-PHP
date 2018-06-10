@@ -24,8 +24,8 @@ function genereerArtikel($row, $prijs = true)
                     <p>$row->OMSCHRIJVING</p>";
     if ($prijs) {
         if (!empty($row->ACTIEPRIJS)) {
-            $prod .= "<span class='prijs actie'>&euro; 3,99</span>
-                  <span class='prijs niet-actie'>&euro; 4,99</span>";
+            $prod .= "<span class='prijs actie'>&euro; $row->ACTIEPRIJS</span>
+                  <span class='prijs niet-actie'>&euro; $row->PRIJS</span>";
         } else {
             $prod .= "<span class='prijs'>&euro; $row->PRIJS</span>";
         }

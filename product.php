@@ -15,8 +15,8 @@ $product = "<section class='row product'>
                 <div class='column' style='flex-basis: 35%'>
                     <h2>$row->PRODUCTNAAM</h2>";
 if (!empty($row->ACTIEPRIJS)) {
-    $product .= "<span class='prijs actie'>&euro; 3,99</span>
-                 <span class='prijs niet-actie'>&euro; 4,99</span>";
+    $product .= "<span class='prijs actie'>&euro; $row->ACTIEPRIJS</span>
+                 <span class='prijs niet-actie'>&euro; $row->PRIJS</span>";
 } else {
     $product .= "<span class='prijs'>&euro; $row->PRIJS</span>";
 }
