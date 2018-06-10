@@ -17,9 +17,15 @@ while ($row = $sth->fetchObject()) {
     $total = $row->Total;
     $producten[] = genereerArtikel($row);
 }
+if (empty($producten)) {
+    $producten[] = "Er zijn geen producten gevonden";
+}
 $sth = $dbh->query("SELECT TOP 3 * FROM PRODUCT ORDER BY NEWID()");
 while ($row = $sth->fetchObject()) {
     $uitgelicht[] = genereerArtikel($row, false);
+}
+if (empty($uitgelicht)) {
+    $uitgelicht[] = "Er zijn geen producten gevonden";
 }
 $dbh = null;
 $sth = null;

@@ -17,6 +17,40 @@ ul, ol {
     padding-left: 40px;
 }
 
+h1 {
+    text-align: center;
+    margin: 20px;
+    text-transform: uppercase;
+    font-size: 2.7em;
+    letter-spacing: 0.05em;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+.clear {
+    clear: both;
+}
+
+.right {
+    float: right;
+    margin-left: 10px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+.left {
+    float: left;
+    margin-right: 10px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+.fill {
+    width: 100%;
+}
+
 body {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     background-color: #fafdf4;
@@ -301,45 +335,6 @@ nav.categorieen.open {
     margin-bottom: 30px;
 }
 
-/* content */
-h1 {
-    text-align: center;
-    margin: 20px;
-    text-transform: uppercase;
-    font-size: 2.7em;
-    letter-spacing: 0.05em;
-}
-
-h2 {
-    font-size: 1.8em;
-}
-
-.clear {
-    clear: both;
-}
-
-.right {
-    float: right;
-    margin-left: 10px;
-    margin-top: 4px;
-    margin-bottom: 10px;
-}
-
-.left {
-    float: left;
-    margin-left: 10px;
-    margin-top: 4px;
-    margin-bottom: 10px;
-}
-
-.fill {
-    width: 100%;
-}
-
-.space-top {
-    margin-top: 30px;
-}
-
 /* Forms */
 input {
     padding: 6px 8px;
@@ -434,6 +429,7 @@ form.registratieformulier .form-row input[type="date"]:focus{
     margin: auto;
 }
 
+/* Footer */
 footer {
     background: black;
     background-image: url("../img/theekop.jpg"), url("../img/koffiekop.jpg");
