@@ -227,7 +227,7 @@ nav > ul > li.search {
     margin-right: auto;
 }
 
-.search > input {
+.search input {
     padding: 5px 8px;
     background: inherit;
     width: 300px;
@@ -236,7 +236,7 @@ nav > ul > li.search {
     text-indent: 20px;
 }
 
-.search > i {
+.search i {
     position: absolute;
     top: 15px;
     opacity: 0.4;

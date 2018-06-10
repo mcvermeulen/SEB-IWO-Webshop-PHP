@@ -5,8 +5,14 @@ $limit = $_GET['limit'] ?? 10;
 $total = 0;
 $dbh = DatabaseConnect();
 
-$sth = $dbh->prepare("SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRODUCTNUMMER) AS RowID, (SELECT COUNT(*) FROM PRODUCT) AS Total, * FROM PRODUCT) AS P WHERE RowID >= :start AND RowID <= :end");
-$sth->execute(array(':start' => ($page-1) * $limit, ':end' => $page * $limit));
+if (empty($_POST['zoek'])) {
+    $sth = $dbh->prepare("SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRODUCTNUMMER) AS RowID, (SELECT COUNT(*) FROM PRODUCT) AS Total, * FROM PRODUCT) AS P WHERE RowID > :start AND RowID <= :end");
+    $sth->execute(array(':start' => ($page-1) * $limit, ':end' => $page * $limit));
+} else {
+    $limit = 9999;
+    $sth = $dbh->prepare("SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRODUCTNUMMER) AS RowID, (SELECT COUNT(*) FROM PRODUCT) AS Total, * FROM PRODUCT) AS P WHERE RowID > :start AND RowID <= :end AND PRODUCTNAAM like :zoek");
+    $sth->execute(array(':start' => ($page-1) * $limit, ':end' => $page * $limit, ':zoek' => "%$_POST[zoek]%"));
+}
 while ($row = $sth->fetchObject()) {
     $total = $row->Total;
     $producten[] = genereerArtikel($row);
