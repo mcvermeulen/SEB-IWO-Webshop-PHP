@@ -1,181 +1,60 @@
+<?php
+require_once 'includes/core.php';
+$page = $_GET['page'] ?? 1;
+$limit = $_GET['limit'] ?? 10;
+$total = 0;
+$dbh = DatabaseConnect();
+$sth = $dbh->query('SELECT CATEGORIENAAM FROM CATEGORIE');
+
+$categorieen = "<nav class='categorieen open'>
+                   <ul>";
+while ($row = $sth->fetchObject()) {
+    $categorieen .= "<li><a href='?categorie=$row->CATEGORIENAAM'>$row->CATEGORIENAAM</a></li>";
+}
+$categorieen .= "</ul></nav>";
+
+if (empty($_GET['categorie'])) {
+    $sth = $dbh->prepare("SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRODUCTNUMMER) AS RowID, (SELECT COUNT(*) FROM PRODUCT) AS Total, * FROM PRODUCT) AS P WHERE RowID > :start AND RowID <= :end");
+    $sth->execute(array(':start' => ($page - 1) * $limit, ':end' => $page * $limit));
+} else {
+    $limit = 9999;
+    $sth = $dbh->prepare("SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRODUCTNUMMER) AS RowID, (SELECT COUNT(*) FROM PRODUCT) AS Total, * FROM PRODUCT) AS P WHERE RowID > :start AND RowID <= :end AND CATEGORIE = :categorie");
+    $sth->execute(array(':start' => ($page - 1) * $limit, ':end' => $page * $limit, ":categorie" => $_GET['categorie']));
+}
+while ($row = $sth->fetchObject()) {
+    $total = $row->Total;
+    $producten[] = genereerArtikel($row);
+}
+if (empty($producten)) {
+    $producten[] = "Er zijn geen producten gevonden in deze categorie";
+}
+
+$sth = null;
+$dbh = null;
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php require_once 'includes/head.html'; ?>
     <title>FairFood</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
 <body>
 
 <?php include 'includes/header.php'; ?>
 
 <main>
-    <nav class="categorieen open">
-        <ul>
-            <li><a href="#">Koffie</a></li>
-            <li><a href="#">Thee</a></li>
-            <li><a href="#">Chocolade</a></li>
-            <li><a href="#">Wijn</a></li>
-            <li><a href="#">Sauzen</a></li>
-            <li><a href="#">Kruiden en specerijen</a></li>
-            <li><a href="#">Vruchtensappen</a></li>
-            <li><a href="#">Snoepgoed</a></li>
-        </ul>
-    </nav>
-    <section class="row uitgelicht">
-        <h2>Uitgelicht</h2>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-    </section>
-    <aside>Wij bij FairFood staan voor kwaliteit, betrouwbaarheid en eerlijkheid.<br />
-        U bent bij ons aan het juiste adres voor FairTrade en biologische producten tegen een eerlijke prijs. </aside>
+    <?= $categorieen ?>
     <section class="row">
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="product.php">
-                <img src="img/7610202259422.png"/>
-                <div>
-                    <h3>Productnaam</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt dolorum eius illum magni quae
-                        vel veritatis vero? </p>
-                    <span class="prijs">&euro; 4,99</span>
-                </div>
-                <div class="hover">
-                    Bekijk product
-                </div>
-            </a>
-        </article>
-
+        <?php foreach ($producten as $prod) {
+            echo $prod;
+        } ?>
     </section>
 </main>
-
-<?php include 'includes/footer.html'; ?>
+<?php
+    echo genereerPagination($page, $limit, $total);
+    include 'includes/footer.html';
+?>
 
 </body>
 </html>
