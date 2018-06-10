@@ -170,21 +170,23 @@ article .prijs {
     position: absolute;
     right: 0;
     bottom: 0;
-    font-weight: 800;
 }
 article.geenprijs > a > div > p {
     max-height: 6.9em !important;
 }
-article .actie {
+.actie {
     color: #e5371b;
 }
-article .niet-actie {
-    font-size: 1em;
+.niet-actie {
+    font-size: 1em !important;
     text-decoration: line-through;
+}
+article .niet-actie {
     bottom: 30px;
 }
 
 .prijs {
+    font-weight: 800;
     font-size: 2em;
 }
 

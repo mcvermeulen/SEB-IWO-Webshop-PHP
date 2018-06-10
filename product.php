@@ -13,9 +13,14 @@ $product = "<section class='row product'>
                     <p>$row->OMSCHRIJVING</p>
                 </div>
                 <div class='column' style='flex-basis: 35%'>
-                    <h2>$row->PRODUCTNAAM</h2>
-                    <span class='prijs'>&euro; $row->PRIJS</span>
-                    <form class='winkelmandje'>
+                    <h2>$row->PRODUCTNAAM</h2>";
+if (!empty($row->ACTIEPRIJS)) {
+    $product .= "<span class='prijs actie'>&euro; 3,99</span>
+                 <span class='prijs niet-actie'>&euro; 4,99</span>";
+} else {
+    $product .= "<span class='prijs'>&euro; $row->PRIJS</span>";
+}
+$product .=         "<form class='winkelmandje'>
                         <div class='form-group'>
                             <label for='aantal'>Aantal: </label>
                             <input type='number' id='aantal' name='aantal' value='1'/>
