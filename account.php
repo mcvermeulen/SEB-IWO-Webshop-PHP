@@ -8,31 +8,31 @@ if(!isset($_SESSION['gebruiker'])){
 
 require_once 'includes/core.php';
 $dbh = DatabaseConnect();
-$huidigeGebruiker = "'" . $_SESSION['gebruiker'] . "'";
+$huidigeGebruiker = $_SESSION['gebruiker'];
 
 
-$selectQueryAccount = $dbh->prepare("SELECT * FROM GEBRUIKER WHERE GEBRUIKERSNAAM = $huidigeGebruiker");
-$selectQueryAccount->execute();
+$selectQueryAccount = $dbh->prepare("SELECT * FROM GEBRUIKER WHERE GEBRUIKERSNAAM = :gebruiker");
+$selectQueryAccount->execute([':gebruiker' => $huidigeGebruiker]);
 
-$html = "<table class = 'accountinfo'>";
+$html = "<div>";
 
 while ($row = $selectQueryAccount->fetch()){
-    $html .= "<tr><td class = 'accountinfoKop'>Gebruikersnaam</td><td>" . $row['GEBRUIKERSNAAM'] . "</td></tr>";
-    $html .= "<tr><td class = 'accountinfoKop'>Aanhef</td><td>" . ($row['SEXE'] == 'M' ? 'Dhr.' : 'Mvr.') . "</td></tr>";
-    $html .= "<tr><td class = 'accountinfoKop'>Voornaam</td><td>" . $row['VOORNAAM'] . "</td></tr>";
-    $html .= "<tr><td class = 'accountinfoKop'>Tussenvoegsels</td><td>" . $row['TUSSENVOEGSEL'] . "</td></tr>";
-    $html .= "<tr><td class = 'accountinfoKop'>Achternaam</td><td>" . $row['ACHTERNAAM'] . "</td></tr>";
-    $html .= "<tr><td class = 'accountinfoKop'>Geboortedatum</td><td>" . $row['GEBOORTEDATUM'] . "</td></tr>";
-    $html .= "<tr><td class = 'accountinfoKop'>Telefoon</td><td>" . $row['TELEFOON'] . "</td></tr>";
-    $html .= "<tr><td class = 'accountinfoKop'>Straatnaam</td><td>" . $row['STRAATNAAM'] . "</td></tr>";
-    $html .= "<tr><td class = 'accountinfoKop'>Huisnummer</td><td>" . $row['HUISNUMMER'] . "</td></tr>";
-    $html .= "<tr><td class = 'accountinfoKop'>Postcode</td><td>" . $row['POSTCODE'] . "</td></tr>";
-    $html .= "<tr><td class = 'accountinfoKop'>Woonplaats</td><td>" . $row['WOONPLAATS'] . "</td></tr>";
-    $html .= "<tr><td class = 'accountinfoKop'>Email</td><td>" . $row['EMAIL'] . "</td></tr>";
-    $html .= "<tr><td class = 'accountinfoKop'>Nieuwsbrief</td><td>" . ($row['NIEUWSBRIEF'] < 1 ? 'Nee' : 'Ja') . "</td></tr>";
+    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Gebruikersnaam</li><li class = 'accountinfoData'>" . $row['GEBRUIKERSNAAM'] . "</li></ul>";
+    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Aanhef</li><li class = 'accountinfoData'>" . ($row['SEXE'] == 'M' ? 'Dhr.' : 'Mvr.') . "</li></ul>";
+    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Voornaam</li><li class = 'accountinfoData'>" . $row['VOORNAAM'] . "</li></ul>";
+    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Tussenvoegsels</li><li class = 'accountinfoData'>" . $row['TUSSENVOEGSEL'] . "</li></ul>";
+    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Achternaam</li><li class = 'accountinfoData'>" . $row['ACHTERNAAM'] . "</li></ul>";
+    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Geboortedatum</li><li class = 'accountinfoData'>" . $row['GEBOORTEDATUM'] . "</li></ul>";
+    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Telefoon</li><li class = 'accountinfoData'>" . $row['TELEFOON'] . "</li></ul>";
+    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Straatnaam</li><li class = 'accountinfoData'>" . $row['STRAATNAAM'] . "</li></ul>";
+    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Huisnummer</li><li class = 'accountinfoData'>" . $row['HUISNUMMER'] . "</li></ul>";
+    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Postcode</li><li class = 'accountinfoData'>" . $row['POSTCODE'] . "</li></ul>";
+    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Woonplaats</li><li class = 'accountinfoData'>" . $row['WOONPLAATS'] . "</li></ul>";
+    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Email</li><li class = 'accountinfoData'>" . $row['EMAIL'] . "</li></ul>";
+    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Nieuwsbrief</li><li class = 'accountinfoData'>" . ($row['NIEUWSBRIEF'] < 1 ? 'Nee' : 'Ja') . "</li></ul>";
 }
 
-$html .="</table>";
+$html .= "</div>";
 
 ?>
 

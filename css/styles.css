@@ -458,25 +458,36 @@ form.registratieformulier .form-row input[type="date"]:focus{
 
 /* Account info */
 
-.accountinfo{
-    width: 50%;
-    border-spacing: 10px;
-    margin: auto;
-    border: 3px solid #eae8d4;
-    /*table-layout: fixed;*/
+ul.accountinfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    list-style: none;
 }
 
-.accountinfo td{
+li.accountinfoKop{
     padding: 0.5em 1em;
-    vertical-align: top;
-    background-color: #e3e5da;
-    /*word-wrap: break-word;*/
+    font-weight: bold;
+    margin-bottom: 1em;
+    width: 50%;
+    max-width: 1000px;
+    min-width: 150px;
+    height: 2.5em;
+    border: 3px solid #e3e5da;
 }
 
-td.accountinfoKop {
-    font-weight: bold;
-    background-color: #fafdf4;
+li.accountinfoData{
+    padding: 0.5em 1em;
+    background-color: #e3e5da;
+    width: 70%;
+    max-width: 1000px;
+    min-width: 150px;
+    height: 2.5em;
+    margin-bottom: 1em;
 }
+
 
 /* Footer */
 footer {
@@ -585,11 +596,9 @@ select {
     article {
         flex: 33%;
     }
-
-    .search > input {
+    .search input {
         width: 150px;
     }
-
     header div h2 {
         margin: 0;
     }
@@ -639,6 +648,22 @@ select {
         margin-left: 0;
     }
 
+    /* Google Maps responsive maken */
+
+    .map-responsive{
+        overflow:hidden;
+        padding-bottom:56.25%;
+        position:relative;
+        height:0;
+    }
+    .map-responsive iframe{
+        left:0;
+        top:0;
+        height:100%;
+        width:100%;
+        position:absolute;
+    }
+
     footer {
         background: black none;
         color: white;
@@ -654,10 +679,21 @@ select {
     nav .text {
         display: none;
     }
-
-    .accountinfo{
-        font-size: 80%;
+    ul.accountinfo {
+        flex-direction: column;
     }
+    li.accountinfoKop{
+        margin-bottom: 0;
+        width: 100%;
+    }
+    li.accountinfoData{
+        width: 100%;
+        margin-top: 0;
+        min-height: 2em;
+        height: 150%;
+        font-size: 85%;
+    }
+
 }
 
 @media screen and (max-width: 400px) {
@@ -666,7 +702,10 @@ select {
         margin-left: 0 !important;
     }
     header .logo {
-        height: 50px;
+        height: 42px;
+    }
+    .search input {
+        width: 100px;
     }
     article {
         flex: 100%;

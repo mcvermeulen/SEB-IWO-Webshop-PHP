@@ -17,6 +17,9 @@ $straatnaamValue = "";
 $huisnummerValue = "";
 $postcodeValue = "";
 $woonplaatsValue = "";
+$geslachtM_Checked = "checked";
+$geslachtV_Checked = "";
+$nieuwsbrief_Checked = "";
 $emailValue = "";
 
 /* Houdt ingevoerde data vast, in het geval het formulier niet volledig / correct was ingevuld toen het werd verstuurd */
@@ -44,6 +47,22 @@ if(isset($_POST['gebruikersnaam'])){
     $emailValue = $_POST['emailRegistratie'];
 }
 
+if($_POST['geslacht'] == 'V'){
+    $geslachtV_Checked = "checked";
+    $geslachtM_Checked = "";
+} else {
+    $geslachtM_Checked = "checked";
+    $geslachtV_Checked = "";
+}
+
+if(isset($_POST['nieuwsbrief'])){
+    $nieuwsbrief_Checked = "checked";
+} else{
+    $nieuwsbrief_Checked = "";
+}
+
+
+
 /* controleren of alle verplichte velden ingevuld zijn */
 if (!empty($_POST['gebruikersnaam']) && !empty($_POST['voornaam']) && !empty($_POST['achternaam']) && !empty($_POST['straat'])
     && !empty($_POST['huisnummer']) && !empty($_POST['postcode']) && !empty($_POST['woonplaats']) && !empty($_POST['emailRegistratie'])
@@ -53,7 +72,7 @@ if (!empty($_POST['gebruikersnaam']) && !empty($_POST['voornaam']) && !empty($_P
     if ($_POST['wachtwoordRegistratie'] == $_POST['wachtwoordRegistratieCheck']) {
         $naamBezet = false;
 
-        /*Controleren of de gebruiksnaam al bezet is */
+        /*Controleren of de gebruikersnaam al bezet is */
         while ($row = $selectQueryAlles->fetch()) {
             if ($row['GEBRUIKERSNAAM'] == $_POST['gebruikersnaam']) {
                 $naamBezet = true;
@@ -94,11 +113,11 @@ if (!empty($_POST['gebruikersnaam']) && !empty($_POST['voornaam']) && !empty($_P
 
         <fieldset class="legacy-form-row">
             <div class= "radiogroep">
-                <input id="geslacht-1" name="geslacht" type="radio" value="M" checked />
+                <input id="geslacht-1" name="geslacht" type="radio" value="M" <?=$geslachtM_Checked?> />
                 <label for="geslacht-1" class="radio-label">Dhr.</label>
             </div>
             <div class= "radiogroep">
-                <input id="geslacht-2" name="geslacht" type="radio" value="V" />
+                <input id="geslacht-2" name="geslacht" type="radio" value="V" <?=$geslachtV_Checked?> />
                 <label for="geslacht-2" class="radio-label">Mvr.</label>
             </div>
         </fieldset>
@@ -154,7 +173,7 @@ if (!empty($_POST['gebruikersnaam']) && !empty($_POST['voornaam']) && !empty($_P
 
         <div class="form-row">
             <label class="checkbox-label" for="nieuwsbrief">
-                <input id="nieuwsbrief" name="nieuwsbrief" type="checkbox" value="wil_nieuwsbrief_ontvangen"/>
+                <input id="nieuwsbrief" name="nieuwsbrief" type="checkbox" value="wil_nieuwsbrief_ontvangen" <?=$nieuwsbrief_Checked?>/>
                 <span>Stuur mij de nieuwsbrief</span>
             </label>
         </div>

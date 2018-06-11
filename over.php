@@ -24,9 +24,14 @@ include 'includes/signin.php';
     <p><span>Wil jij ook iets goeds doen voor ontwikkelingslanden? Veel mensen willen niet altijd maar geld geven aan goede doel, maar ook iets doen. Maar niet iedereen heeft de mogelijkheid om naar deze landen toe reizen en daar zijn steentje bij te dragen. Maar wat velen niet beseffen, is dat je ook hier in Nederland ontwikkelingswerk kan doen. Onze keuzes hier hebben namelijk veel invloed op de landen daar. Zolang wij altijd de goedkoopste rijst of spijkerbroek willen kunnen kopen, zullen er daar altijd mensen uitgebuit worden.</span></p>
     <p><span>Wil je dus iets goed doen, dan kies je voor eerlijke, fair trade producten.</span></p>
     <h2 class="clear">Routebeschrijving</h2>
-    <img class="right" src="http://via.placeholder.com/600x400" alt="Logo">
-    <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores molestiae nemo nihil quod ratione. Asperiores beatae enim facilis fugit maiores non odit officiis perspiciatis, quam, quidem recusandae sint vel veritatis?</span><span>Consequuntur est labore minima mollitia quam repellendus sit unde voluptatum. Dignissimos doloribus dolorum expedita ipsum laboriosam magni maiores quam? Asperiores eius enim est molestias mollitia natus necessitatibus officiis provident recusandae.</span><span>Accusamus eum exercitationem incidunt laborum modi quia quis suscipit. Adipisci aperiam architecto culpa delectus dolore dolorem error excepturi labore magni natus nemo pariatur porro quisquam quo ratione, sunt veniam voluptatum?</span><span>Asperiores culpa, dolorem illo iure iusto nam nesciunt quasi tenetur? Ad, consequatur dolore doloremque ea labore laudantium quam voluptatem. Ad earum eos illo impedit ratione ullam. Hic nam sequi voluptatem?</span>
-    </p>
+    <div class="map-responsive">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2457.0453157172205!2d5.948007816141927!3d51.98782767971706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c7a46f8160614d%3A0x3a1bc587c5374eeb!2sRuitenberglaan+26%2C+6826+CC+Arnhem!5e0!3m2!1snl!2snl!4v1528720812572" width="600" height="450" frameborder="0" style="border:0" allowfullscreen class = "right"></iframe>
+    </div>
+    <p><span>FairFood is gevestigd in Arnhem. Ons postadres is:</span></p>
+    <p>Postbus 2217<br>6802 CE Arnhem</p>
+    <p>Onse bezoekadres is:</p>
+    <p>Ruitenberglaan 26<br>6826 CC Arnhem</p>
+    <p>De Ruitenberglaan bevindt zich op loopafstand van treinstation Arnhem Presikhaaf, en de bushaltes Station Presikhaaf, Dongestraat, Elsweide, en Zuilesteinlaan. Wij zijn bereikbaar op werkdagen, van 9:00 tot 17:00. Als u uw bestellingen naar ons retour wil verzenden, gelieve ons postadres te gebruiken.</p>
 </main>
 
 <?php include 'includes/footer.html'; ?>
