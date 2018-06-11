@@ -1,6 +1,50 @@
+<?php
+if (isset($_SESSION['gebruiker'])) {
+    $headerHTML = <<<CODE
+<li class="dropdown">
+    <i class="fa fa-user fa-lg green"></i>
+    <div class="dropdown-menu">
+        <h3>Hallo $_SESSION[gebruiker]!</h3>
+        <p>
+            <a href='account.php'>Mijn profiel</a>
+        </p>
+        <p>
+            <a class="button" href='signout.php'>Uitloggen</a>
+        </p>
+    </div>
+</li>
+CODE;
+}
+else {
+    $headerHTML = <<<CODE
+<li class="dropdown">
+    <i class="far fa-user fa-lg"></i>
+    <div class="dropdown-menu">
+        <h3>Inloggen</h3>
+        <form action="" method="post">
+            <p><label for="gebruiker">Gebruikersnaam</label><br/>
+                <input id="gebruiker" name="gebruiker" type="text" maxlength="15"></p>
+            <p><label for="wachtwoord">Wachtwoord</label><br/>
+                <input id="wachtwoord" name="wachtwoord" type="password" maxlength="15"></p>
+            <p>
+                <input id="onthouden" type="checkbox" name="onthouden">
+                <label for="onthouden">Ingelogd blijven</label>
+            </p>
+            <p>
+                <button type="submit" class="fill space-top">Inloggen</button>
+            </p>
+            <p>
+                <a href="registreren.php">Registreren</a>
+            </p>
+        </form>
+    </div>
+</li>
+CODE;
+}
+?>
+
 <header>
     <a href="index.php"><img src="img/FairFood_logo3.png" alt="Logo" class = "logo"></a>
-    <span class="right"><?=$groet?></span>
 </header>
 <nav>
     <ul>

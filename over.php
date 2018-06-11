@@ -1,6 +1,6 @@
 <?php
-include 'includes/signin.php';
-
+session_start();
+include 'includes/core.php';
 ?>
 
 <!DOCTYPE html>

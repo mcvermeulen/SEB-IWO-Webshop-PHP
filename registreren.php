@@ -1,7 +1,7 @@
 <?php
-
+session_start();
 require_once 'includes/core.php';
-include 'includes/signin.php';
+
 $dbh = DatabaseConnect();
 
 $selectQueryAlles = $dbh->prepare("SELECT GEBRUIKERSNAAM FROM GEBRUIKER");

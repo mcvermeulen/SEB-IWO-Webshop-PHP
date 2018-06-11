@@ -1,6 +1,7 @@
 <?php
+session_start();
 require_once 'includes/core.php';
-include 'includes/signin.php';
+
 $dbh = DatabaseConnect();
 $sth = $dbh->query("SELECT * FROM PRODUCT WHERE ACTIEPRIJS IS NOT NULL ");
 

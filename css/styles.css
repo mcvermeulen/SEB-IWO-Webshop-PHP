@@ -336,6 +336,25 @@ nav.categorieen.open {
     transition: max-height 0.3s ease-in;
     margin-bottom: 30px;
 }
+.green {
+    color: #03af32;
+}
+.dropdown-menu p:last-of-type {
+    position: absolute;
+    bottom: 10px;
+}
+.dropdown-menu .button {
+    display: inline-block;
+    color: black;
+    background-image: linear-gradient(180deg, #52c07b, #63e895);
+    text-align: center;
+    padding: 14px 60px;
+    text-decoration: none;
+    box-shadow: 0 8px 6px -6px black;
+}
+.dropdown-menu .button:hover {
+    background-image: linear-gradient(180deg, #63e895, #63e895);
+}
 
 /* Forms */
 input {
@@ -345,12 +364,16 @@ input {
 }
 
 button {
+    border: 0;
     min-width: 150px;
     padding: 10px 20px;
     font-size: 14px;
     background-image: linear-gradient(180deg, #52c07b, #63e895);
+    box-shadow: 0 8px 6px -6px black;
 }
-
+button:hover {
+    background-image: linear-gradient(180deg, #63e895, #63e895);
+}
 .form-group {
     width: 100%;
     display: flex;

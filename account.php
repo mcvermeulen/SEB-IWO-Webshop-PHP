@@ -1,6 +1,5 @@
 <?php
-
-include 'includes/signin.php';
+session_start();
 
 if(!isset($_SESSION['gebruiker'])){
     header('Location: index.php');
@@ -14,24 +13,22 @@ $huidigeGebruiker = $_SESSION['gebruiker'];
 $selectQueryAccount = $dbh->prepare("SELECT * FROM GEBRUIKER WHERE GEBRUIKERSNAAM = :gebruiker");
 $selectQueryAccount->execute([':gebruiker' => $huidigeGebruiker]);
 
+$row = $selectQueryAccount->fetch();
+
 $html = "<div>";
-
-while ($row = $selectQueryAccount->fetch()){
-    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Gebruikersnaam</li><li class = 'accountinfoData'>" . $row['GEBRUIKERSNAAM'] . "</li></ul>";
-    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Aanhef</li><li class = 'accountinfoData'>" . ($row['SEXE'] == 'M' ? 'Dhr.' : 'Mvr.') . "</li></ul>";
-    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Voornaam</li><li class = 'accountinfoData'>" . $row['VOORNAAM'] . "</li></ul>";
-    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Tussenvoegsels</li><li class = 'accountinfoData'>" . $row['TUSSENVOEGSEL'] . "</li></ul>";
-    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Achternaam</li><li class = 'accountinfoData'>" . $row['ACHTERNAAM'] . "</li></ul>";
-    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Geboortedatum</li><li class = 'accountinfoData'>" . $row['GEBOORTEDATUM'] . "</li></ul>";
-    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Telefoon</li><li class = 'accountinfoData'>" . $row['TELEFOON'] . "</li></ul>";
-    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Straatnaam</li><li class = 'accountinfoData'>" . $row['STRAATNAAM'] . "</li></ul>";
-    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Huisnummer</li><li class = 'accountinfoData'>" . $row['HUISNUMMER'] . "</li></ul>";
-    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Postcode</li><li class = 'accountinfoData'>" . $row['POSTCODE'] . "</li></ul>";
-    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Woonplaats</li><li class = 'accountinfoData'>" . $row['WOONPLAATS'] . "</li></ul>";
-    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Email</li><li class = 'accountinfoData'>" . $row['EMAIL'] . "</li></ul>";
-    $html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Nieuwsbrief</li><li class = 'accountinfoData'>" . ($row['NIEUWSBRIEF'] < 1 ? 'Nee' : 'Ja') . "</li></ul>";
-}
-
+$html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Gebruikersnaam</li><li class = 'accountinfoData'>" . $row['GEBRUIKERSNAAM'] . "</li></ul>";
+$html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Aanhef</li><li class = 'accountinfoData'>" . ($row['SEXE'] == 'M' ? 'Dhr.' : 'Mvr.') . "</li></ul>";
+$html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Voornaam</li><li class = 'accountinfoData'>" . $row['VOORNAAM'] . "</li></ul>";
+$html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Tussenvoegsels</li><li class = 'accountinfoData'>" . $row['TUSSENVOEGSEL'] . "</li></ul>";
+$html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Achternaam</li><li class = 'accountinfoData'>" . $row['ACHTERNAAM'] . "</li></ul>";
+$html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Geboortedatum</li><li class = 'accountinfoData'>" . $row['GEBOORTEDATUM'] . "</li></ul>";
+$html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Telefoon</li><li class = 'accountinfoData'>" . $row['TELEFOON'] . "</li></ul>";
+$html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Straatnaam</li><li class = 'accountinfoData'>" . $row['STRAATNAAM'] . "</li></ul>";
+$html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Huisnummer</li><li class = 'accountinfoData'>" . $row['HUISNUMMER'] . "</li></ul>";
+$html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Postcode</li><li class = 'accountinfoData'>" . $row['POSTCODE'] . "</li></ul>";
+$html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Woonplaats</li><li class = 'accountinfoData'>" . $row['WOONPLAATS'] . "</li></ul>";
+$html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Email</li><li class = 'accountinfoData'>" . $row['EMAIL'] . "</li></ul>";
+$html .= "<ul class = 'accountinfo'><li class = 'accountinfoKop'>Nieuwsbrief</li><li class = 'accountinfoData'>" . ($row['NIEUWSBRIEF'] < 1 ? 'Nee' : 'Ja') . "</li></ul>";
 $html .= "</div>";
 
 ?>

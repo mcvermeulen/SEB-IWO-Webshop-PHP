@@ -1,6 +1,6 @@
 <?php
+session_start();
 require_once 'includes/core.php';
-include 'includes/signin.php';
 
 $page = $_GET['page'] ?? 1;
 $limit = $_GET['limit'] ?? 10;
