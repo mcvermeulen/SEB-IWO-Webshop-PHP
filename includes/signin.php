@@ -10,8 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['gebruiker']) && !emp
 
     if (isset($row['GEBRUIKERSNAAM'])) {
         $_SESSION['gebruiker'] = $row['GEBRUIKERSNAAM'];
-        header('Location: index.php');
     }
+    header('Location: index.php');
 }
 
 ?>
