@@ -65,3 +65,10 @@ function genereerPagination($page = 1, $limit = 10, $total = 0, $zoek = null){
 
     return $pagination;
 }
+
+function clean_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}

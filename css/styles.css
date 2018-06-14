@@ -381,7 +381,12 @@ button:hover {
     align-items: center;
     margin-bottom: 4px;
 }
-
+.form-error {
+    font-style: italic;
+    font-size: 0.9em;
+    color: #FF0000;
+    margin-top: 4px;
+}
 form.winkelmandje {
     display: flex;
     flex-direction: column;
@@ -398,27 +403,36 @@ form.winkelmandje:first-child {
     flex: 50%;
 }
 
-form.registratieformulier{
+#registratieformulier {
+    display: flex;
+    justify-content: space-around;
     background-color: white;
     border: 1px solid #eae8d4;
     border-radius: 3px;
-    padding: 50px 5% 50px 5%;
+    padding: 50px 5%;
     width: 75%;
     margin: 40px auto auto;
 }
+#registratieformulier .form-error {
+    margin-left: 40%;
+}
+#registratieformulier > div:first-of-type {
+    flex: 1 0 66%;
+}
+#registratieformulier > div:last-of-type {
+    flex: 0 1 33%;
+    padding: 0 10px;
+}
 
-form.registratieformulier img.registratieplaatje{
-    float: right;
-    width: 330px;
+#registratieformulier img {
+    max-width: 330px;
 }
 
 .form-row {
     display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
     align-items: flex-start;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .form-row input[type="text"],
@@ -426,25 +440,20 @@ form.registratieformulier img.registratieplaatje{
 .form-row input[type="password"],
 .form-row input[type="date"],
 .form-row select{
-    width: 70%;
+    width: 60%;
     height: initial;
 }
 
-form.registratieformulier .form-row input[type="text"]:focus,
-form.registratieformulier .form-row input[type="email"]:focus,
-form.registratieformulier .form-row input[type="password"]:focus,
-form.registratieformulier .form-row input[type="date"]:focus{
+#registratieformulier .form-row input[type="text"]:focus,
+#registratieformulier .form-row input[type="email"]:focus,
+#registratieformulier .form-row input[type="password"]:focus,
+#registratieformulier .form-row input[type="date"]:focus{
     border: 1px solid forestgreen;
-}
-
-.invalidUsername{
-    border: 2px solid red;
-    color: red;
 }
 
 .form-row label {
     text-align: right;
-    width: 200px;
+    width: 40%;
     margin-top: 7px;
     padding-right: 20px;
 }
@@ -452,7 +461,7 @@ form.registratieformulier .form-row input[type="date"]:focus{
 .legacy-form-row {
     border: none;
     margin-bottom: 10px;
-    margin-left: 200px;
+    margin-left: 40%;
 }
 
 .radiogroep {
@@ -471,7 +480,7 @@ form.registratieformulier .form-row input[type="date"]:focus{
 
 .form-row .checkbox-label {
     text-align: left;
-    margin-left: 200px;
+    margin-left: 40%;
     width: 100%;
 }
 
@@ -578,27 +587,10 @@ select {
     font-size: 12px;
 }
 
-@media screen and (max-width: 1650px) {
-    form.registratieformulier img.registratieplaatje{
-        display: none;
-    }
-
-    .form-row label{
-        width: 165px;
-    }
-
-    .legacy-form-row,
-    .form-row .checkbox-label{
-        margin-left: 165px;
-        width: 200px;
-    }
-
-    .form-row input[type="text"],
-    .form-row input[type="email"],
-    .form-row input[type="password"],
-    .form-row input[type="date"],
-    .form-row select {
-        width: 60%;
+@media screen and (max-width: 1024px) {
+    #registratieformulier {
+        width: 100%;
+        padding: 20px 5%;
     }
 }
 
@@ -641,34 +633,8 @@ select {
         clear: both;
     }
 
-    .form-row{
-        margin-bottom: 40px;
-        flex-direction: column;
-    }
-    form.registratieformulier .form-row input[type="text"],
-    form.registratieformulier .form-row input[type="password"],
-    form.registratieformulier .form-row input[type="date"],
-    form.registratieformulier .form-row input[type="email"]{
-        width: 95%;
-    }
-    .form-row label {
-        margin-bottom: 15px;
-        margin-top: 0;
-        padding-right: 0;
-        text-align: left;
-        font-size: 120%;
-        width: 100%;
-    }
-    .form-row .checkbox-label {
-        margin-left: 0;
-        width: auto;
-    }
-    .form-row button{
-        margin-top: 12px;
-    }
-
-    .legacy-form-row {
-        margin-left: 0;
+    #registratieformulier > div:last-of-type {
+        display: none;
     }
 
     /* Google Maps responsive maken */
@@ -715,6 +681,33 @@ select {
         min-height: 2em;
         height: 150%;
         font-size: 85%;
+    }
+    .form-row {
+        flex-direction: column;
+    }
+    .form-row input[type="text"],
+    .form-row input[type="email"],
+    .form-row input[type="password"],
+    .form-row input[type="date"],
+    .form-row select{
+        width: 100%;
+        height: initial;
+    }
+    .form-row label {
+        text-align: left;
+        width: 100%;
+        padding-right: 0;
+    }
+    .form-row .checkbox-label {
+        text-align: left;
+        margin-left: 0;
+        width: 100%;
+    }
+    .legacy-form-row {
+        margin-left: 0;
+    }
+    #registratieformulier .form-error {
+        margin-left: 0;
     }
 
 }

@@ -5,7 +5,10 @@ $dbh = DatabaseConnect();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['gebruiker']) && !empty($_POST['wachtwoord'])) {
     $selectQueryGebruiker = $dbh->prepare("SELECT GEBRUIKERSNAAM FROM GEBRUIKER WHERE GEBRUIKERSNAAM = :naam AND WACHTWOORD = :wachtwoord");
-    $selectQueryGebruiker->execute([':naam' => $_POST['gebruiker'], ':wachtwoord' => $_POST['wachtwoord']]);
+    $selectQueryGebruiker->execute([
+        ':naam' => $_POST['gebruiker'],
+        ':wachtwoord' => hash('sha512', $_POST['wachtwoord'])
+    ]);
     $row = $selectQueryGebruiker->fetch();
 
     if (isset($row['GEBRUIKERSNAAM'])) {
