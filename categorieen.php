@@ -2,25 +2,59 @@
 session_start();
 require_once 'includes/core.php';
 
-$page = $_GET['page'] ?? 1;
-$limit = $_GET['limit'] ?? 10;
-$total = 0;
-$dbh = DatabaseConnect();
-$sth = $dbh->query('SELECT CATEGORIENAAM FROM CATEGORIE');
+//change values if requested
+if ($_SERVER['REQUEST_METHOD'] === "GET" || $_SERVER['REQUEST_METHOD'] === "POST"){
+    if (!empty($_GET['limit'])){
+        $_SESSION['limit'] = $_GET['limit'];
+    }
+    if (!empty($_GET['categorie'])) {
+        if ($_GET['categorie'] === 'alles') {
+            unset($_SESSION['categorie']);
+            $categorie = null;
+        } else {
+            $_SESSION['categorie'] = $_GET['categorie'];
+        }
+    }
+    if (!empty($_POST['zoek'])){
+        $_SESSION['zoek'] = $_POST['zoek'];
+    }
+}
 
+// set default values
+$page = $_GET['page'] ?? 1;
+$limit = 10;
+$categorie = null;
+$total = 0;
+
+// override defaults if set by user
+if (isset($_SESSION['limit'])) {
+    $limit = $_SESSION['limit'];
+}
+if (isset($_SESSION['zoek'])) {
+    $zoek = $_SESSION['zoek'];
+}
+if (isset($_SESSION['categorie'])) {
+    $categorie = $_SESSION['categorie'];
+}
+$dbh = DatabaseConnect();
+
+// Haal alle categorieen op
+$sth = $dbh->query('SELECT CATEGORIENAAM FROM CATEGORIE');
 $categorieen = "<nav class='categorieen open'>
-                   <ul>";
+                   <ul>
+                       <li><a href='?categorie=alles'>Alles</a></li>";
 while ($row = $sth->fetchObject()) {
     $categorieen .= "<li><a href='?categorie=$row->CATEGORIENAAM'>$row->CATEGORIENAAM</a></li>";
 }
 $categorieen .= "</ul></nav>";
 
-if (empty($_GET['categorie'])) {
+// Haal alle producten op, binnen een categorie als dat is aangegeven
+if (empty($categorie)) {
     $sth = $dbh->prepare("SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRODUCTNUMMER) AS RowID, (SELECT COUNT(*) FROM PRODUCT) AS Total, * FROM PRODUCT) AS P WHERE RowID > :start AND RowID <= :end");
     $sth->execute(array(':start' => ($page - 1) * $limit, ':end' => $page * $limit));
 } else {
     $sth = $dbh->prepare("SELECT P.* FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRODUCTNUMMER) AS RowID, (SELECT COUNT(*) FROM PRODUCT WHERE CATEGORIE = :categorie1) AS Total, * FROM PRODUCT WHERE CATEGORIE = :categorie2) AS P WHERE RowID > :start AND RowID <= :end");
-    $sth->execute(array(':start' => ($page - 1) * $limit, ':end' => $page * $limit, ":categorie1" => $_GET['categorie'], ":categorie2" => $_GET['categorie']));
+    $sth->execute(array(':start' => ($page - 1) * $limit, ':end' => $page * $limit, ":categorie1" => $categorie, ":categorie2" => $categorie));
 }
 while ($row = $sth->fetchObject()) {
     $total = $row->Total;

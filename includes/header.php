@@ -54,7 +54,7 @@ CODE;
         <li class="search">
             <form method="post" action="index.php">
                 <i class="fas fa-search"></i>
-                <input name="zoek" placeholder="Zoek..." onkeydown="this.form.submit"/>
+                <input name="zoek" placeholder="Zoek..." value="<?php echo $_SESSION['zoek'] ?? '';?>" onkeydown="this.form.submit"/>
             </form>
         </li>
         <?=$headerHTML?>

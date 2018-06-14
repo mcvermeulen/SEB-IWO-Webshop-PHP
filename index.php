@@ -1,12 +1,29 @@
 <?php
 session_start();
-
 require_once 'includes/core.php';
+if ($_SERVER['REQUEST_METHOD'] === "GET" || $_SERVER['REQUEST_METHOD'] === "POST"){
+    if (!empty($_GET['limit'])){
+        $_SESSION['limit'] = $_GET['limit'];
+    }
+    if (!empty($_POST['zoek'])){
+        $_SESSION['zoek'] = $_POST['zoek'];
+    } else {
+        unset($_SESSION['zoek']);
+        $zoek = null;
+    }
+}
 
 $page = $_GET['page'] ?? 1;
-$limit = $_GET['limit'] ?? 10;
-$zoek = $_REQUEST['zoek'] ?? null;
+$limit = 10;
+$zoek = null;
 $total = 0;
+if (isset($_SESSION['limit'])) {
+    $limit = $_SESSION['limit'];
+}
+if (isset($_SESSION['zoek'])) {
+    $zoek = $_SESSION['zoek'];
+}
+
 $dbh = DatabaseConnect();
 
 if (empty($zoek)) {
