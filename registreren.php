@@ -246,13 +246,13 @@ if (!empty($gebruikersnaam) && !empty($voornaam) && !empty($achternaam) && !empt
                 <span class="form-error"><?= $emailError ?></span>
             </div>
             <div class="form-row">
-                <label for="wachtwoord">* Wachtwoord</label>
-                <input id="wachtwoord" name="wachtwoord" type="password" required/>
+                <label for="wachtwoord1">* Wachtwoord</label>
+                <input id="wachtwoord1" name="wachtwoord" type="password" required/>
                 <span class="form-error"><?= $wachtwoordError ?></span>
             </div>
             <div class="form-row">
-                <label for="wachtwoordCheck">* Herhaal wachtwoord</label>
-                <input id="wachtwoordCheck" name="wachtwoordCheck" type="password" required/>
+                <label for="wachtwoord2">* Herhaal wachtwoord</label>
+                <input id="wachtwoord2" name="wachtwoordCheck" type="password" required/>
             </div>
 
             <div class="form-row">
