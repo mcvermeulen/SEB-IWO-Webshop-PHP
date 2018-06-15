@@ -320,6 +320,7 @@ nav > ul > li.search {
 
 nav .dropdown {
     display: inline-block;
+    padding-left: 40px;
 }
 
 nav .dropdown-menu {
@@ -336,7 +337,9 @@ nav .dropdown-menu {
     display: none;
     z-index: 1;
 }
-
+nav .dropdown-menu > form > p:nth-child(3) {
+    margin-top: 40px;
+}
 .dropdown-menu input:not([type=checkbox]) {
     width: 200px;
 }
@@ -663,7 +666,9 @@ select {
     nav {
         margin-bottom: 0;
     }
-
+    nav .dropdown {
+        padding-left: 0;
+    }
     h1 {
         font-size: 2em;
     }

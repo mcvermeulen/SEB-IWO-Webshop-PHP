@@ -27,11 +27,7 @@ else {
             <p><label for="wachtwoord">Wachtwoord</label><br/>
                 <input id="wachtwoord" name="wachtwoord" type="password" maxlength="15"></p>
             <p>
-                <input id="onthouden" type="checkbox" name="onthouden">
-                <label for="onthouden">Ingelogd blijven</label>
-            </p>
-            <p>
-                <button type="submit" class="fill space-top">Inloggen</button>
+                <button type="submit" class="fill">Inloggen</button>
             </p>
             <p>
                 <a href="registreren.php">Registreren</a>
