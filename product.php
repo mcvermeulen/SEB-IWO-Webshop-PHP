@@ -21,10 +21,11 @@ if (!empty($row->ACTIEPRIJS)) {
 } else {
     $product .= "<span class='prijs'>&euro; $row->PRIJS</span>";
 }
-$product .=         "<form class='winkelmandje'>
+$product .=         "<form method='post' action='winkelwagen.php' class='winkelmandje'>
                         <div class='form-group'>
+                            <input type='hidden' name='productnummer' value = '$row->PRODUCTNUMMER'/>
                             <label for='aantal'>Aantal: </label>
-                            <input type='number' id='aantal' name='aantal' value='1'/>
+                            <input type='number' id='aantal' name='aantal' value='1' min = '1'/>
                         </div>
                         <button type='submit'>In mijn winkelmandje <i class='fas fa-shopping-basket'></i></button>
                     </form>
@@ -32,7 +33,7 @@ $product .=         "<form class='winkelmandje'>
             </section>";
 
 $sth = $dbh->prepare("SELECT TOP 3 * FROM PRODUCT WHERE PRODUCTNUMMER IN (SELECT PRODUCTNUMMER_GERELATEERD_PRODUCT FROM PRODUCT_GERELATEERD_PRODUCT WHERE PRODUCTNUMMER = :id);
-");
+"); // TODO wat is dit?
 $sth->execute(array(':id' => $_GET['id']));
 
 $related = array();

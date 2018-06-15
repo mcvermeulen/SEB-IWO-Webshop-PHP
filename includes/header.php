@@ -45,6 +45,7 @@ CODE;
 
 <header>
     <a href="index.php"><img src="img/FairFood_logo3.png" alt="Logo" class = "logo"></a>
+    <a href="winkelwagen.php"><i class='fas fa-shopping-basket'></i></a>
 </header>
 <nav>
     <ul>

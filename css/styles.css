@@ -57,6 +57,7 @@ body {
     font-size: 14px;
     display: flex;
     flex-direction: column;
+    min-height: 1000px;
 }
 
 header {
@@ -66,6 +67,11 @@ header {
 header .logo{
     height: 100px;
     margin-left: 2em;
+}
+
+header i{
+    float: right;
+    color: black;
 }
 
 main {
@@ -232,6 +238,40 @@ article:hover div.hover {
     max-height: 500px;
 }
 
+/* Winkelwagen */
+
+.winkelmandoverzicht {
+    width: 80%;
+    //background-color: white;
+    margin: auto;
+}
+
+.winkelmandItem {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid black;
+    width: 100%;
+}
+
+.winkelmandAfbeelding {
+    width: 15%;
+    min-width: 150px;
+    //background-color: red;
+}
+
+.winkelmandDetails {
+    width: 15%;
+    min-width: 60px;
+    margin-top: 1em;
+    //background-color: lightblue;
+}
+
+.winkelmandTotaal {
+    margin-top: 1em;
+    border: none;
+}
+
+
 /* Navbar */
 nav {
     padding: 0 16px;
@@ -343,7 +383,8 @@ nav.categorieen.open {
     position: absolute;
     bottom: 10px;
 }
-.dropdown-menu .button {
+.dropdown-menu .button,
+.winkelmandDetails .button {
     display: inline-block;
     color: black;
     background-image: linear-gradient(180deg, #52c07b, #63e895);
@@ -352,7 +393,8 @@ nav.categorieen.open {
     text-decoration: none;
     box-shadow: 0 8px 6px -6px black;
 }
-.dropdown-menu .button:hover {
+.dropdown-menu .button:hover,
+.winkelmandDetails .button {
     background-image: linear-gradient(180deg, #63e895, #63e895);
 }
 
@@ -370,6 +412,7 @@ button {
     font-size: 14px;
     background-image: linear-gradient(180deg, #52c07b, #63e895);
     box-shadow: 0 8px 6px -6px black;
+    margin-top: 0.2em;
 }
 button:hover {
     background-image: linear-gradient(180deg, #63e895, #63e895);

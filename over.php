@@ -29,7 +29,7 @@ include 'includes/core.php';
     </div>
     <p><span>FairFood is gevestigd in Arnhem. Ons postadres is:</span></p>
     <p>Postbus 2217<br>6802 CE Arnhem</p>
-    <p>Onse bezoekadres is:</p>
+    <p>Ons bezoekadres is:</p>
     <p>Ruitenberglaan 26<br>6826 CC Arnhem</p>
     <p>De Ruitenberglaan bevindt zich op loopafstand van treinstation Arnhem Presikhaaf, en de bushaltes Station Presikhaaf, Dongestraat, Elsweide, en Zuilesteinlaan. Wij zijn bereikbaar op werkdagen, van 9:00 tot 17:00. Als u uw bestellingen naar ons retour wil verzenden, gelieve ons postadres te gebruiken.</p>
 </main>
