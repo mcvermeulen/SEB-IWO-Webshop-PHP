@@ -280,6 +280,7 @@ nav > ul > li.search {
 
 nav .dropdown {
     display: inline-block;
+    padding-left: 40px;
 }
 
 nav .dropdown-menu {
@@ -620,7 +621,9 @@ select {
     nav {
         margin-bottom: 0;
     }
-
+    nav .dropdown {
+        padding-left: 0;
+    }
     h1 {
         font-size: 2em;
     }
