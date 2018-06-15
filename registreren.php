@@ -27,13 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!preg_match("/^[a-zA-Z ]*$/",$voornaam)) {
             $voornaamError = "Alleen letters en spaties toegestaan";
         }
-        if (strlen($_POST["voornaam"]) > 125) {
-            $voornaamError = "U heeft teveel karakters ingevuld";
+        if (strlen($_POST["voornaam"]) < 2 || strlen($_POST["voornaam"]) > 125) {
+            $voornaamError = "U heeft een ongeldige voornaam opgegeven";
         }
     }
     if (!empty($_POST['tussenvoegsels'])) {
         $tussenvoegsels = clean_input($_POST['tussenvoegsels']);
-        if (!preg_match("/^[a-zA-Z ]*$/",$tussenvoegsels)) {
+        if (!preg_match("/^[a-zA-Z ]{2,}$/",$tussenvoegsels)) {
             $tussenvoegselsError = "Alleen letters en spaties toegestaan";
         }
     }
@@ -41,8 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $achternaamError = "Achternaam is een verplicht veld";
     } else {
         $achternaam = clean_input($_POST['achternaam']);
-        if (!preg_match("/^[a-zA-Z ]*$/",$achternaam)) {
-            $achternaamError = "Alleen letters en spaties toegestaan";
+        if (!preg_match("/^[a-zA-Z ]{2,}$/",$achternaam)) {
+            $achternaamError = "U heeft een ongeldige achternaam opgegeven";
         }
     }
     if (!empty($_POST['geboortedatum'])) {
@@ -66,6 +66,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $huisnummerError = "Huisnummer is een verplicht veld";
     } else {
         $huisnummer = clean_input($_POST['huisnummer']);
+        if (!preg_match("/^\d{1,8}$/", $huisnummer)) {
+            $huisnummerError = "Een huisnummer mag alleen uit cijfers bestaan";
+        }
     }
     if (empty($_POST['postcode'])) {
         $postcodeError = "Bijvoorbeeld: 1234XX";
@@ -185,7 +188,7 @@ if (!empty($gebruikersnaam) && !empty($voornaam) && !empty($achternaam) && !empt
             <fieldset class="legacy-form-row">
                 <div class="radiogroep">
                     <input id="geslacht-1" name="geslacht" type="radio" value="M"
-                        <?php if (isset($geslacht) && $geslacht=="M") echo "checked";?>/>
+                        <?php if (isset($geslacht) && $geslacht=="M") echo "checked";?> required/>
                     <label for="geslacht-1" class="radio-label">Dhr.</label>
                 </div>
                 <div class="radiogroep">
@@ -193,6 +196,7 @@ if (!empty($gebruikersnaam) && !empty($voornaam) && !empty($achternaam) && !empt
                         <?php if (isset($geslacht) && $geslacht=="V") echo "checked";?>/>
                     <label for="geslacht-2" class="radio-label">Mvr.</label>
                 </div>
+                <span class="form-error"><?= $geslachtError ?></span>
             </fieldset>
 
             <div class="form-row">

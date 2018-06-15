@@ -297,7 +297,9 @@ nav .dropdown-menu {
     display: none;
     z-index: 1;
 }
-
+nav .dropdown-menu > form > p:nth-child(3) {
+    margin-top: 40px;
+}
 .dropdown-menu input:not([type=checkbox]) {
     width: 200px;
 }
