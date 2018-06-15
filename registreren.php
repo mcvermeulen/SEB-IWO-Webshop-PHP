@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($_POST['wachtwoord'] !== $_POST['wachtwoordCheck']) {
             $wachtwoordError = "De wachtwoorden komen niet overeen";
         } else {
-            $wachtwoord = hash('sha512', $_POST['wachtwoord']);
+            $wachtwoord = hash('sha512', ($_POST['wachtwoord'].getenv('SALT')));
         }
     }
 

@@ -5,3 +5,4 @@ putenv("SQL_USER=username");
 putenv("SQL_PASS=password");
 putenv("SQL_DB=WEBSHOP");
 putenv("SQL_PORT=1401");
+putenv("SALT=Hadad^%#shlpea1#hdk98T31MKfr003H");

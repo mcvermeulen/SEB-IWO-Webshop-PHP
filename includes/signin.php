@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['gebruiker']) && !emp
     $selectQueryGebruiker = $dbh->prepare("SELECT GEBRUIKERSNAAM FROM GEBRUIKER WHERE GEBRUIKERSNAAM = :naam AND WACHTWOORD = :wachtwoord");
     $selectQueryGebruiker->execute([
         ':naam' => $_POST['gebruiker'],
-        ':wachtwoord' => hash('sha512', $_POST['wachtwoord'])
+        ':wachtwoord' => hash('sha512', ($_POST['wachtwoord'].getenv('SALT')))
     ]);
     $row = $selectQueryGebruiker->fetch();
 
