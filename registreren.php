@@ -3,7 +3,7 @@ session_start();
 require_once 'includes/core.php';
 
 $dbh = DatabaseConnect();
-$gebruikersnamen = $dbh->query("SELECT GEBRUIKERSNAAM FROM GEBRUIKER");
+$gebruikersnamen = $dbh->query("SELECT GEBRUIKERSNAAM, EMAIL FROM GEBRUIKER");
 $gebruikersnamen->execute();
 
 $gebruikersnaam = $voornaam = $tussenvoegsels = $achternaam = $geboortedatum = $telefoon = '';
@@ -107,6 +107,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         if ($_POST['wachtwoord'] !== $_POST['wachtwoordCheck']) {
             $wachtwoordError = "De wachtwoorden komen niet overeen";
+        } elseif (strlen($_POST['wachtwoord']) < 8) {
+            $wachtwoordError = "Het wachtwoord dient uit minimaal 8 karakters te bestaan";
         } else {
             $wachtwoord = hash('sha512', ($_POST['wachtwoord'].getenv('SALT')));
         }
@@ -114,12 +116,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 if (empty($gebruikersnaamError)) {
-    $naamBezet = false;
-    /*Controleren of de gebruikersnaam al bezet is */
+    $bezet = false;
+    /*Controleren of de gebruikersnaam en/of email al bezet is */
     while ($row = $gebruikersnamen->fetch()) {
         if ($row['GEBRUIKERSNAAM'] === $gebruikersnaam) {
-            $naamBezet = true;
-            $gebruikersnaamError = "Kies andere naam";
+            $bezet = true;
+            $gebruikersnaamError = "Deze gebruikersnaam is al bezet";
+        }
+        if ($row['EMAIL'] === $email) {
+            $bezet = true;
+            $emailError = "Er is al een account geregistreerd met dit emailadres";
         }
     }
 }
@@ -132,7 +138,7 @@ if (!empty($gebruikersnaam) && !empty($voornaam) && !empty($achternaam) && !empt
     && empty($wachtwoordError)) {
 
     /* na alle checks wordt de data geaccepteerd en doorgestuurd*/
-    if (!$naamBezet) {
+    if (!$bezet) {
         $insertQuery = $dbh->prepare(
                 "INSERT INTO GEBRUIKER (GEBRUIKERSNAAM, VOORNAAM, TUSSENVOEGSEL, ACHTERNAAM, GEBOORTEDATUM, TELEFOON, STRAATNAAM, HUISNUMMER, POSTCODE, WOONPLAATS, EMAIL, SEXE, WACHTWOORD, NIEUWSBRIEF) 
         VALUES (:gebruikersnaam, :voornaam, :tussenvoegsels, :achternaam, :geboortedatum, :telefoon, :straatnaam, :huisnummer, :postcode, :woonplaats, :email, :geslacht, :wachtwoord, :nieuwsbrief)");
