@@ -1,22 +1,25 @@
 <?php
 session_start();
 require_once 'includes/core.php';
-if ($_SERVER['REQUEST_METHOD'] === "GET" || $_SERVER['REQUEST_METHOD'] === "POST"){
-    if (!empty($_GET['limit'])){
-        $_SESSION['limit'] = $_GET['limit'];
-    }
-    if (!empty($_POST['zoek'])){
-        $_SESSION['zoek'] = $_POST['zoek'];
-    } else {
-        unset($_SESSION['zoek']);
-        $zoek = null;
-    }
-}
 
 $page = $_GET['page'] ?? 1;
 $limit = 10;
 $zoek = null;
 $total = 0;
+
+if ($_SERVER['REQUEST_METHOD'] === "GET" || $_SERVER['REQUEST_METHOD'] === "POST"){
+    if (!empty($_GET['limit'])){
+        $_SESSION['limit'] = clean_input($_GET['limit']);
+    }
+    if (!empty($_POST['zoek'])){
+        $_SESSION['zoek'] = clean_input($_POST['zoek']);
+    }
+    if (isset($_POST['remove'])) {
+        unset($_SESSION['zoek']);
+        $zoek = null;
+    }
+}
+
 if (isset($_SESSION['limit'])) {
     $limit = $_SESSION['limit'];
 }
@@ -74,7 +77,7 @@ $sth = null;
         <?php foreach ($producten as $prod) { echo $prod; } ?>
     </section>
 </main>
-<?php echo genereerPagination($page, $limit, $total, $zoek) ?>
+<?php echo genereerPagination($page, $limit, $total) ?>
 
 <?php include 'includes/footer.html'; ?>
 
