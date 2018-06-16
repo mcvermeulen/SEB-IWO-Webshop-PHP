@@ -6,7 +6,8 @@ $dbh = DatabaseConnect();
 $gebruikersnamen = $dbh->query("SELECT GEBRUIKERSNAAM, EMAIL FROM GEBRUIKER");
 $gebruikersnamen->execute();
 
-$gebruikersnaam = $voornaam = $tussenvoegsels = $achternaam = $geboortedatum = $telefoon = '';
+$geboortedatum = null;
+$gebruikersnaam = $voornaam = $tussenvoegsels = $achternaam = $telefoon = '';
 $woonplaats = $straat = $huisnummer = $postcode = $geslacht = $nieuwsbrief = $email = '';
 $gebruikersnaamError = $wachtwoordError = $voornaamError = $tussenvoegselsError = $achternaamError = $geboortedatumError = '';
 $telefoonError = $straatError = $huisnummerError = $postcodeError = $geslachtError = $nieuwsbriefError = $woonplaatsError = $emailError = '';
@@ -99,9 +100,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $geslacht = clean_input($_POST['geslacht']);
     }
-    if (!empty($_POST['nieuwsbrief'])) {
-        $nieuwsbrief = clean_input($_POST['nieuwsbrief']);
-    }
     if (empty($_POST['wachtwoord'])) {
         $wachtwoordError = "Wachtwoord is een verplicht veld";
     } else {
@@ -113,6 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $wachtwoord = hash('sha512', ($_POST['wachtwoord'].getenv('SALT')));
         }
     }
+    $nieuwsbrief = isset($_POST['nieuwsbrief']) ? 1 : 0;
 }
 
 if (empty($gebruikersnaamError)) {
@@ -267,8 +266,7 @@ if (!empty($gebruikersnaam) && !empty($voornaam) && !empty($achternaam) && !empt
 
             <div class="form-row">
                 <label class="checkbox-label" for="nieuwsbrief">
-                    <input id="nieuwsbrief" name="nieuwsbrief" type="checkbox"
-                           value="wil_nieuwsbrief_ontvangen"/>
+                    <input id="nieuwsbrief" name="nieuwsbrief" type="checkbox"/>
                     <span>Stuur mij de nieuwsbrief</span>
                 </label>
             </div>
