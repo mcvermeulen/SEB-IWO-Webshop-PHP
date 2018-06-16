@@ -40,7 +40,7 @@ function genereerArtikel($row, $prijs = true)
     return $prod;
 }
 
-function genereerPagination($page = 1, $limit = 10, $total = 0, $zoek = null){
+function genereerPagination($page = 1, $limit = 10, $total = 0){
     $nPages = ceil($total/$limit);
 
     $pagination = "<ul class='pagination'>";

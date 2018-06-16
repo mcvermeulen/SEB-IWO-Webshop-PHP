@@ -335,6 +335,17 @@ nav > ul > li.search {
     top: 15px;
     opacity: 0.4;
 }
+.search button {
+    background-image: none;
+    padding: 2px 5px;
+    min-width: 0;
+    box-shadow: none;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background-color: inherit;
+    opacity: 0.4;
+}
 
 nav .dropdown {
     display: inline-block;

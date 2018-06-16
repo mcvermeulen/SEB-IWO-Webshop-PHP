@@ -6,7 +6,8 @@ $dbh = DatabaseConnect();
 $gebruikersnamen = $dbh->query("SELECT GEBRUIKERSNAAM, EMAIL FROM GEBRUIKER");
 $gebruikersnamen->execute();
 
-$gebruikersnaam = $voornaam = $tussenvoegsels = $achternaam = $geboortedatum = $telefoon = '';
+$geboortedatum = null;
+$gebruikersnaam = $voornaam = $tussenvoegsels = $achternaam = $telefoon = '';
 $woonplaats = $straat = $huisnummer = $postcode = $geslacht = $nieuwsbrief = $email = '';
 $gebruikersnaamError = $wachtwoordError = $voornaamError = $tussenvoegselsError = $achternaamError = $geboortedatumError = '';
 $telefoonError = $straatError = $huisnummerError = $postcodeError = $geslachtError = $nieuwsbriefError = $woonplaatsError = $emailError = '';
@@ -74,15 +75,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $postcodeError = "Bijvoorbeeld: 1234XX";
     } else {
         $postcode = clean_input($_POST['postcode']);
-        if (strlen($_POST["voornaam"]) > 6) {
-            $postcodeError = "U heeft teveel karakters ingevuld";
+        if (!preg_match("/^\d{4}[a-zA-Z]{2}$/", $postcode)) {
+            $postcodeError = "Vul een geldige postcode in";
         }
     }
     if (empty($_POST['woonplaats'])) {
         $woonplaatsError = "Woonplaats is een verplicht veld";
     } else {
         $woonplaats = clean_input($_POST['woonplaats']);
-        if (strlen($_POST["voornaam"]) > 125) {
+        if (strlen($_POST["woonplaats"]) > 125) {
             $woonplaatsError = "U heeft teveel karakters ingevuld";
         }
     }
@@ -99,9 +100,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $geslacht = clean_input($_POST['geslacht']);
     }
-    if (!empty($_POST['nieuwsbrief'])) {
-        $nieuwsbrief = clean_input($_POST['nieuwsbrief']);
-    }
     if (empty($_POST['wachtwoord'])) {
         $wachtwoordError = "Wachtwoord is een verplicht veld";
     } else {
@@ -113,6 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $wachtwoord = hash('sha512', ($_POST['wachtwoord'].getenv('SALT')));
         }
     }
+    $nieuwsbrief = isset($_POST['nieuwsbrief']) ? 1 : 0;
 }
 
 if (empty($gebruikersnaamError)) {
@@ -139,28 +138,33 @@ if (!empty($gebruikersnaam) && !empty($voornaam) && !empty($achternaam) && !empt
 
     /* na alle checks wordt de data geaccepteerd en doorgestuurd*/
     if (!$bezet) {
-        $insertQuery = $dbh->prepare(
+        try {
+            $insertQuery = $dbh->prepare(
                 "INSERT INTO GEBRUIKER (GEBRUIKERSNAAM, VOORNAAM, TUSSENVOEGSEL, ACHTERNAAM, GEBOORTEDATUM, TELEFOON, STRAATNAAM, HUISNUMMER, POSTCODE, WOONPLAATS, EMAIL, SEXE, WACHTWOORD, NIEUWSBRIEF) 
         VALUES (:gebruikersnaam, :voornaam, :tussenvoegsels, :achternaam, :geboortedatum, :telefoon, :straatnaam, :huisnummer, :postcode, :woonplaats, :email, :geslacht, :wachtwoord, :nieuwsbrief)");
-        $insertQuery->execute([
-            ':gebruikersnaam' => $gebruikersnaam,
-            ':voornaam' => $voornaam,
-            ':tussenvoegsels' => $tussenvoegsels,
-            ':achternaam' => $achternaam,
-            ':geboortedatum' => $geboortedatum,
-            ':telefoon' => $telefoon,
-            ':straatnaam' => $straat,
-            ':huisnummer' => $huisnummer,
-            ':postcode' => $postcode,
-            ':woonplaats' => $woonplaats,
-            ':email' => $email,
-            ':geslacht' => $geslacht,
-            ':wachtwoord' => $wachtwoord,
-            ':nieuwsbrief' => $nieuwsbrief,
-        ]);
+            $insertQuery->execute([
+                ':gebruikersnaam' => $gebruikersnaam,
+                ':voornaam' => $voornaam,
+                ':tussenvoegsels' => $tussenvoegsels,
+                ':achternaam' => $achternaam,
+                ':geboortedatum' => $geboortedatum,
+                ':telefoon' => $telefoon,
+                ':straatnaam' => $straat,
+                ':huisnummer' => $huisnummer,
+                ':postcode' => $postcode,
+                ':woonplaats' => $woonplaats,
+                ':email' => $email,
+                ':geslacht' => $geslacht,
+                ':wachtwoord' => $wachtwoord,
+                ':nieuwsbrief' => $nieuwsbrief,
+            ]);
 
-        $_SESSION['gebruiker'] = $gebruikersnaam;
-        header('Location: account.php');
+            $_SESSION['gebruiker'] = $gebruikersnaam;
+            header('Location: account.php');
+        } catch (PDOException $e) {
+            echo "Er ging iets mis met het wegschrijven naar de database: <br>".$e->getMessage();
+            exit;
+        }
     }
 
     $gebruikersnamen = null;
@@ -267,8 +271,7 @@ if (!empty($gebruikersnaam) && !empty($voornaam) && !empty($achternaam) && !empt
 
             <div class="form-row">
                 <label class="checkbox-label" for="nieuwsbrief">
-                    <input id="nieuwsbrief" name="nieuwsbrief" type="checkbox"
-                           value="wil_nieuwsbrief_ontvangen"/>
+                    <input id="nieuwsbrief" name="nieuwsbrief" type="checkbox"/>
                     <span>Stuur mij de nieuwsbrief</span>
                 </label>
             </div>
