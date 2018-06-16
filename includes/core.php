@@ -21,7 +21,8 @@ function genereerArtikel($row, $prijs = true)
                 <img src='$row->AFBEELDING_KLEIN' alt='Foto van $row->PRODUCTNUMMER'/>
                 <div>
                     <h3>$row->PRODUCTNAAM</h3>
-                    <p>$row->OMSCHRIJVING</p>";
+                    <p>$row->OMSCHRIJVING</p>
+                </div>";
     if ($prijs) {
         if (!empty($row->ACTIEPRIJS)) {
             $prod .= "<span class='prijs actie'>&euro; $row->ACTIEPRIJS</span>
@@ -30,10 +31,9 @@ function genereerArtikel($row, $prijs = true)
             $prod .= "<span class='prijs'>&euro; $row->PRIJS</span>";
         }
     }
-    $prod .= "</div>
-                <div class='hover'>
-                    Bekijk product
-                </div>
+    $prod .= "<div class='hover'>
+                 Bekijk product
+              </div>
             </a>
         </article>";
 

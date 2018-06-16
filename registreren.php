@@ -6,9 +6,8 @@ $dbh = DatabaseConnect();
 $gebruikersnamen = $dbh->query("SELECT GEBRUIKERSNAAM, EMAIL FROM GEBRUIKER");
 $gebruikersnamen->execute();
 
-$geboortedatum = null;
-$gebruikersnaam = $voornaam = $tussenvoegsels = $achternaam = $telefoon = '';
-$woonplaats = $straat = $huisnummer = $postcode = $geslacht = $nieuwsbrief = $email = '';
+$gebruikersnaam = $voornaam = $tussenvoegsels = $achternaam = $geboortedatum = $telefoon = null;
+$woonplaats = $straat = $huisnummer = $postcode = $geslacht = $nieuwsbrief = $email = null;
 $gebruikersnaamError = $wachtwoordError = $voornaamError = $tussenvoegselsError = $achternaamError = $geboortedatumError = '';
 $telefoonError = $straatError = $huisnummerError = $postcodeError = $geslachtError = $nieuwsbriefError = $woonplaatsError = $emailError = '';
 

@@ -20,11 +20,11 @@ $status = "";
 $minValue = $row->VOORRAAD >= 1 ? 1 : 0;
 $maxValue = (empty($row->VOORRAAD) ? 0 : $row->VOORRAAD);
 $product = "<section class='row product'>
-                <div class='column' style='flex-basis: 45%'>
+                <div class='column'>
                     <img src='$row->AFBEELDING_GROOT' alt='Foto van $row->PRODUCTNAAM'/>
                     <p>$row->OMSCHRIJVING</p>
                 </div>
-                <div class='column' style='flex-basis: 35%'>
+                <div class='column'>
                     <h2>$row->PRODUCTNAAM</h2>";
 if($row->VOORRAAD > 0) {
     if (!empty($row->ACTIEPRIJS)) {
