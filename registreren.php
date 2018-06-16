@@ -75,15 +75,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $postcodeError = "Bijvoorbeeld: 1234XX";
     } else {
         $postcode = clean_input($_POST['postcode']);
-        if (strlen($_POST["voornaam"]) > 6) {
-            $postcodeError = "U heeft teveel karakters ingevuld";
+        if (!preg_match("/^\d{4}[a-zA-Z]{2}$/", $postcode)) {
+            $postcodeError = "Vul een geldige postcode in";
         }
     }
     if (empty($_POST['woonplaats'])) {
         $woonplaatsError = "Woonplaats is een verplicht veld";
     } else {
         $woonplaats = clean_input($_POST['woonplaats']);
-        if (strlen($_POST["voornaam"]) > 125) {
+        if (strlen($_POST["woonplaats"]) > 125) {
             $woonplaatsError = "U heeft teveel karakters ingevuld";
         }
     }
@@ -138,28 +138,33 @@ if (!empty($gebruikersnaam) && !empty($voornaam) && !empty($achternaam) && !empt
 
     /* na alle checks wordt de data geaccepteerd en doorgestuurd*/
     if (!$bezet) {
-        $insertQuery = $dbh->prepare(
+        try {
+            $insertQuery = $dbh->prepare(
                 "INSERT INTO GEBRUIKER (GEBRUIKERSNAAM, VOORNAAM, TUSSENVOEGSEL, ACHTERNAAM, GEBOORTEDATUM, TELEFOON, STRAATNAAM, HUISNUMMER, POSTCODE, WOONPLAATS, EMAIL, SEXE, WACHTWOORD, NIEUWSBRIEF) 
         VALUES (:gebruikersnaam, :voornaam, :tussenvoegsels, :achternaam, :geboortedatum, :telefoon, :straatnaam, :huisnummer, :postcode, :woonplaats, :email, :geslacht, :wachtwoord, :nieuwsbrief)");
-        $insertQuery->execute([
-            ':gebruikersnaam' => $gebruikersnaam,
-            ':voornaam' => $voornaam,
-            ':tussenvoegsels' => $tussenvoegsels,
-            ':achternaam' => $achternaam,
-            ':geboortedatum' => $geboortedatum,
-            ':telefoon' => $telefoon,
-            ':straatnaam' => $straat,
-            ':huisnummer' => $huisnummer,
-            ':postcode' => $postcode,
-            ':woonplaats' => $woonplaats,
-            ':email' => $email,
-            ':geslacht' => $geslacht,
-            ':wachtwoord' => $wachtwoord,
-            ':nieuwsbrief' => $nieuwsbrief,
-        ]);
+            $insertQuery->execute([
+                ':gebruikersnaam' => $gebruikersnaam,
+                ':voornaam' => $voornaam,
+                ':tussenvoegsels' => $tussenvoegsels,
+                ':achternaam' => $achternaam,
+                ':geboortedatum' => $geboortedatum,
+                ':telefoon' => $telefoon,
+                ':straatnaam' => $straat,
+                ':huisnummer' => $huisnummer,
+                ':postcode' => $postcode,
+                ':woonplaats' => $woonplaats,
+                ':email' => $email,
+                ':geslacht' => $geslacht,
+                ':wachtwoord' => $wachtwoord,
+                ':nieuwsbrief' => $nieuwsbrief,
+            ]);
 
-        $_SESSION['gebruiker'] = $gebruikersnaam;
-        header('Location: account.php');
+            $_SESSION['gebruiker'] = $gebruikersnaam;
+            header('Location: account.php');
+        } catch (PDOException $e) {
+            echo "Er ging iets mis met het wegschrijven naar de database: <br>".$e->getMessage();
+            exit;
+        }
     }
 
     $gebruikersnamen = null;
