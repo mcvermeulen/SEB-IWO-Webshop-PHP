@@ -173,7 +173,7 @@ article > a > div > p:after {
     margin-top: 0.2em;
     background: #e3e5da;
 }
-article.geenprijs > a > div {
+article.geenprijs > a > div:not(.hover) {
     max-height: calc(100% - 4px);
 }
 article .prijs {
