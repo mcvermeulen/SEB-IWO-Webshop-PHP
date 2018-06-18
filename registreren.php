@@ -2,6 +2,10 @@
 session_start();
 require_once 'includes/core.php';
 
+if (isset($_SESSION['gebruiker'])) {
+    header('Location: account.php');
+}
+
 $dbh = DatabaseConnect();
 $gebruikersnamen = $dbh->query("SELECT GEBRUIKERSNAAM, EMAIL FROM GEBRUIKER");
 $gebruikersnamen->execute();

@@ -113,6 +113,11 @@ aside {
     font-style: italic;
     margin: 30px auto 20px auto;
 }
+.gmap {
+    border: 0;
+    width: 600px;
+    height: 450px;
+}
 
 /* Artikelen */
 article {

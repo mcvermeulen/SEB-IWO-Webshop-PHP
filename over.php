@@ -25,7 +25,7 @@ include 'includes/core.php';
     <p><span>Wil je dus iets goed doen, dan kies je voor eerlijke, fair trade producten.</span></p>
     <h2 class="clear">Routebeschrijving</h2>
     <div class="map-responsive">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2457.0453157172205!2d5.948007816141927!3d51.98782767971706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c7a46f8160614d%3A0x3a1bc587c5374eeb!2sRuitenberglaan+26%2C+6826+CC+Arnhem!5e0!3m2!1snl!2snl!4v1528720812572" width="600" height="450" frameborder="0" style="border:0" allowfullscreen class = "right"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2457.0453157172205!2d5.948007816141927!3d51.98782767971706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c7a46f8160614d%3A0x3a1bc587c5374eeb!2sRuitenberglaan+26%2C+6826+CC+Arnhem!5e0!3m2!1snl!2snl!4v1528720812572" allowfullscreen class = "gmap right"></iframe>
     </div>
     <p><span>FairFood is gevestigd in Arnhem. Ons postadres is:</span></p>
     <p>Postbus 2217<br>6802 CE Arnhem</p>
