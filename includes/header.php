@@ -16,12 +16,12 @@ if (isset($_SESSION['gebruiker'])) {
 CODE;
 }
 else {
-    $headerHTML = <<<CODE
+    $headerHTML = '
 <li class="dropdown">
     <i class="far fa-user fa-lg"></i>
     <div class="dropdown-menu">
         <h3>Inloggen</h3>
-        <form action="" method="post">
+        <form action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'" method="post">
             <p><label for="gebruiker">Gebruikersnaam</label><br/>
                 <input id="gebruiker" name="gebruiker" type="text" maxlength="15"></p>
             <p><label for="wachtwoord">Wachtwoord</label><br/>
@@ -34,8 +34,7 @@ else {
             </p>
         </form>
     </div>
-</li>
-CODE;
+</li>';
 }
 ?>
 
