@@ -4,19 +4,17 @@ require_once 'includes/core.php';
 
 $totaalbedrag = 0;
 
-/* Deze eerste check is om te zorgen dat de winkelwagen bij het verversen van de winkelwagen het product in een eventuele
-$_POST array opnieuw in de winkelwagen zet */
+/* Nieuwe items toevoegen aan de winkelwagen. Deze eerste check is om te zorgen dat de winkelwagen bij het verversen van
+de winkelwagen het product in een eventuele $_POST array opnieuw in de winkelwagen zet */
 if(isset($_SESSION['newVisit'])) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!isset($_SESSION['winkelwagen'])) {
             $_SESSION['winkelwagen'] = array($_POST);
         } else {
-
             /*Controleren of dit productnummer al in de winkelwagen zit */
             $nieuwProduct = true;
             for ($i = 0; $i < count($_SESSION['winkelwagen']); $i++) {
                 if ($_POST['productnummer'] == $_SESSION['winkelwagen'][$i]['productnummer']) {
-
                     /* Zo ja, dan wordt het product niet toegevoegd als een nieuwe array, maar verhogen we het aantal in de bestaande array */
                     $nieuwProduct = false;
                     $_SESSION['winkelwagen'][$i]['aantal'] += $_POST['aantal'];
@@ -29,8 +27,31 @@ if(isset($_SESSION['newVisit'])) {
         }
     }
     unset($_SESSION['newVisit']);
+} else {
+    /* Antallen in de winkelwagen aanpassen */
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $index = bepaalIndex($_POST['productnummer'], $_SESSION['winkelwagen']);
+        $_SESSION['winkelwagen'][$index]['aantal'] = $_POST['aantal'];
+    }
+    /* Items uit de winkelwagen verwijderen */
+    elseif ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['productnummer'])) {
+        $index = bepaalIndex($_GET['productnummer'], $_SESSION['winkelwagen']);
+        unset($_SESSION['winkelwagen'][$index]);
+        /* Opnieuw sorteren van de winkelwagen, zodat de indexnummers weer netjes bij elkaar aansluiten */
+        $_SESSION['winkelwagen'] = array_values($_SESSION['winkelwagen']);
+        header('Location: winkelwagen.php');
+    }
 }
 
+function bepaalIndex ($needle, $array){
+    for ($i = 0; $i < count($array); $i++) {
+        if (array_search($needle, $array[$i]) != null) {
+            return $i;
+        }
+    }
+}
+
+/* Inhoud winkelwagen genereren */
 if(empty($_SESSION['winkelwagen'])){
     $winkelwageninhoud = "Uw winkelwagen is leeg";
 }
@@ -44,10 +65,10 @@ else {
 
     $winkelwageninhoud = "<section class='winkelmandoverzicht'>
                             <div class='winkelmandItem'>
-                                <div class='winkelmandAfbeelding'></div>
-                                <div class='winkelmandDetails'><h3>Product</h3></div>
-                                <div class='winkelmandDetails'><h3>Aantal</h3></div>
-                                <div class='winkelmandDetails'><h3>Subtotaal</h3></div>
+                                <div></div>
+                                <div><h3>Product</h3></div>
+                                <div><h3>Aantal</h3></div>
+                                <div><h3>Subtotaal</h3></div>
                             </div>";
     $dbh = DatabaseConnect();
 
@@ -77,39 +98,30 @@ else {
         $totaalbedrag += $subtotaal;
         $subtotaal = number_format($subtotaal, 2);
         $winkelwageninhoud .= "<div class='winkelmandItem'>
-                                    <div class='winkelmandAfbeelding'>
-                                        <a href = 'product.php?id=$item[productnummer]'><img src='$row[AFBEELDING_KLEIN]' alt='Foto van $row[PRODUCTNAAM]'/></a></div>
-                                        <div class='winkelmandDetails'><p><strong>$row[PRODUCTNAAM]</strong></p><p>Stukprijs:  &euro; $prijs</p><p>$row[CATEGORIE]</p></div>
-                                        <div class='winkelmandDetails'> <form method='post' action='winkelwagenUpdate.php'>
-                                            <input type='number' id='aantal' name='aantal' value='$item[aantal]' min = '$minValue' max = '$maxValue'/>
-                                            <input type='hidden' name='productnummer' value = '$row[PRODUCTNUMMER]'/>
-                                            <button>Herbereken</button></form></div>
-                                        <div class='winkelmandDetails subtotaal'> &euro; $subtotaal</div>
-                                        <div class='winkelmandDetails'> <a href='winkelwagenUpdate.php?productnummer=$item[productnummer]'>Verwijderen</a></div>
+                                    <div><a href = 'product.php?id=$item[productnummer]'><img src='$row[AFBEELDING_KLEIN]' alt='Foto van $row[PRODUCTNAAM]'/></a></div>
+                                    <div><p><strong>$row[PRODUCTNAAM]</strong></p><p>Stukprijs:  &euro; $prijs</p><p>$row[CATEGORIE]</p></div>
+                                    <div> <form method='post' action='winkelwagen.php'>
+                                         <input type='number' id='aantal' name='aantal' value='$item[aantal]' min = '$minValue' max = '$maxValue'/>
+                                         <input type='hidden' name='productnummer' value = '$row[PRODUCTNUMMER]'/>
+                                         <button>Herbereken</button></form></div>
+                                    <div class='subtotaal'> &euro; $subtotaal</div>
+                                    <div><a href='winkelwagen.php?productnummer=$item[productnummer]'>Verwijderen</a></div>
                                 </div><br>";
     }
 
     $totaalbedrag = number_format($totaalbedrag, 2);
 
     $winkelwageninhoud .= "<div class='winkelmandTotaal row'>
-                                <div class='winkelmandAfbeelding'></div>
-                                <div class='winkelmandDetails'></div>
-                                <div class='winkelmandDetails'><strong>Totaal: </strong></div>
-                                <div class='winkelmandDetails'><strong>&euro; $totaalbedrag</strong></div>
-                                <div class='winkelmandDetails'>$afrekenen</div>
+                                <div></div>
+                                <div></div>
+                                <div><strong>Totaal: </strong></div>
+                                <div><strong>&euro; $totaalbedrag</strong></div>
+                                <div>$afrekenen</div>
                             </div></section>";
 }
 
 $dbh = null;
 $query = null;
-
-
-   //echo "<pre>";
-    //print_r($_SESSION['winkelwagen']);
-    //print_r($inhoud);
-    //echo "</pre>";
-    //session_destroy();
-
 ?>
 
 

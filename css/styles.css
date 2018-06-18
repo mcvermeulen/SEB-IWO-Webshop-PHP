@@ -247,7 +247,6 @@ article:hover div.hover {
 }
 
 /* Winkelwagen */
-
 .winkelmandoverzicht {
     width: 80%;
     margin: auto;
@@ -264,12 +263,14 @@ article:hover div.hover {
     flex-wrap: wrap;
 }
 
-.winkelmandAfbeelding {
+.winkelmandItem > div:nth-of-type(1),
+.winkelmandTotaal > div:nth-of-type(1){
     width: 14%;
     min-width: 150px;
 }
 
-.winkelmandDetails {
+.winkelmandItem > div,
+.winkelmandTotaal > div{
     width: 20%;
     min-width: 60px;
     margin-top: 1em;
@@ -280,8 +281,8 @@ article:hover div.hover {
     font-weight: bold;
 }
 
-.winkelmandDetails input[type="number"],
-.winkelmandDetails button{
+.winkelmandItem > div input[type="number"],
+.winkelmandItem > div button{
     width: 60%;
     min-width: 8em;
     margin-left: 0;
@@ -292,7 +293,6 @@ article:hover div.hover {
     margin-top: 1em;
     border: none;
 }
-
 
 /* Navbar */
 nav {
@@ -420,7 +420,7 @@ nav.categorieen.open {
     bottom: 10px;
 }
 .dropdown-menu .button,
-.winkelmandDetails .button {
+.winkelmandTotaal > div .button {
     display: inline-block;
     color: black;
     background-image: linear-gradient(180deg, #52c07b, #63e895);
@@ -430,7 +430,7 @@ nav.categorieen.open {
     box-shadow: 0 8px 6px -6px black;
 }
 .dropdown-menu .button:hover,
-.winkelmandDetails .button {
+.winkelmandTotaal > div .button:hover {
     background-image: linear-gradient(180deg, #63e895, #63e895);
 }
 
@@ -567,8 +567,11 @@ form.winkelmandje:first-child {
     margin: auto;
 }
 
-/* Account info */
+#registratieformulier p {
+    margin-left: 3em;
+}
 
+/* Account info */
 ul.accountinfo{
     display: flex;
     flex-direction: row;
@@ -598,7 +601,6 @@ li.accountinfoData{
     height: 2.5em;
     margin-bottom: 1em;
 }
-
 
 /* Footer */
 footer {
@@ -666,7 +668,7 @@ select {
     font-size: 12px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1100px) {
     #registratieformulier {
         width: 100%;
         padding: 20px 5%;
@@ -674,8 +676,10 @@ select {
     .search input {
         width: 120px;
     }
+    #registratieformulier > div:last-of-type {
+        display: none;
+    }
 }
-
 
 @media screen and (max-width: 812px) {
     main {
@@ -721,12 +725,7 @@ select {
         clear: both;
     }
 
-    #registratieformulier > div:last-of-type {
-        display: none;
-    }
-
     /* Google Maps responsive maken */
-
     .map-responsive{
         overflow:hidden;
         padding-bottom:56.25%;
@@ -745,7 +744,6 @@ select {
         background: black none;
         color: white;
     }
-
 }
 
 @media screen and (max-width: 680px) {
@@ -794,6 +792,9 @@ select {
     #registratieformulier .form-error {
         margin-left: 0;
     }
+    #registratieformulier p {
+        margin-left: 0;
+    }
 
     .winkelmandoverzicht {
         width: 100%;
@@ -808,18 +809,18 @@ select {
         width: 100%;
         flex-flow: column;
     }
-
-    .winkelmandAfbeelding {
+    .winkelmandItem > div:nth-of-type(1),
+    .winkelmandTotaal > div:nth-of-type(1){
         margin: auto;
     }
-
-    .winkelmandDetails {
+    .winkelmandItem > div,
+    .winkelmandTotaal > div{
         width: 90%;
         margin: 1em 0.5em 0.5em 5em;
     }
 
-    .winkelmandDetails input[type="number"],
-    .winkelmandDetails button{
+    .winkelmandItem > div input[type="number"],
+    .winkelmandItem > div button{
         width: 10.5em;
         margin-left: 0;
     }
@@ -833,7 +834,6 @@ select {
         font-size: 120%;
         margin-left: 4em;
     }
-
 }
 
 @media screen and (max-width: 400px) {
@@ -856,12 +856,12 @@ select {
     section.product div:nth-child(2) {
         order: -1;
     }
-
-    .winkelmandAfbeelding {
+    .winkelmandItem > div:nth-of-type(1),
+    .winkelmandTotaal > div:nth-of-type(1){
         margin-left: 2em;
     }
-
-    .winkelmandDetails {
+    .winkelmandItem > div,
+    .winkelmandTotaal > div{
         margin-left: 2em;
     }
 }
