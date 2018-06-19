@@ -183,7 +183,7 @@ article.geenprijs > a > div:not(.hover) {
 }
 article .prijs {
     position: absolute;
-    right: 0;
+    right: 6px;
     bottom: 0;
 }
 .actie {
